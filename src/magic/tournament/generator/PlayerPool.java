@@ -18,11 +18,11 @@ public class PlayerPool
    private static Random seed = new Random();
    private static int maxDroppable = 1;
 
-   static SortedMap<String, PlayerInfo> getMapOfPlayers() {
+   public static SortedMap<String, PlayerInfo> getMapOfPlayers() {
       return mapOfPlayers;
    }
 
-   static ArrayList<PlayerInfo> getListOfPlayers() {
+   public static ArrayList<PlayerInfo> getListOfPlayers() {
       ArrayList<PlayerInfo> listOfPlayers = new ArrayList<PlayerInfo>();
       for(Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()){
          listOfPlayers.add(infoEntry.getValue());
@@ -30,11 +30,11 @@ public class PlayerPool
       return listOfPlayers;
    }
 
-   static int getNumPlayers() {
+   public static int getNumPlayers() {
       return mapOfPlayers.size();
    }
 
-   static void registerPlayers(ArrayList<String> playerNames) {
+   public static void registerPlayers(ArrayList<String> playerNames) {
       for(String name : playerNames){
          mapOfPlayers.put(name, new PlayerInfo(name, seed.nextInt(100), playerNames));
 
@@ -42,7 +42,7 @@ public class PlayerPool
       maxDroppable = getNumPlayers()-3;
    }
 
-   static boolean dropPlayer(int round, String dropped, String getsBye) {
+   public static boolean dropPlayer(int round, String dropped, String getsBye) {
       if((round > 1) && (maxDroppable > 0)) {
          mapOfPlayers.remove(dropped);
          maxDroppable--;
@@ -61,7 +61,7 @@ public class PlayerPool
       }
    }
 
-   static void dropAllPlayers() {
+   public static void dropAllPlayers() {
       mapOfPlayers.clear();
    }
 
@@ -73,7 +73,7 @@ public class PlayerPool
     * @param wins the player's wins
     * @param losses the player's losses
     */
-   static void setPlayerOutcome(String playerName, String opponentName, int round, int wins, int losses) {
+   public static void setPlayerOutcome(String playerName, String opponentName, int round, int wins, int losses) {
       PlayerInfo player = mapOfPlayers.get(playerName);
       if (player != null) {
          if (!opponentName.equals("Bye")) {
@@ -100,7 +100,7 @@ public class PlayerPool
     * @param playerName name of player
     * @param opponentName name of opponent
     */
-   static void setRoundPairing(int round, String playerName, String opponentName) {
+   public static void setRoundPairing(int round, String playerName, String opponentName) {
       if (!playerName.equals("Bye")) {
          PlayerInfo player = mapOfPlayers.get(playerName);
          player.addRoundPairing(round, opponentName);
