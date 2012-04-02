@@ -5,4 +5,12 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
            version="2.5">
 
+   <servlet>
+      <servlet-name>create</servlet-name>
+      <servlet-class>CreateController</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>create</servlet-name>
+      <url-pattern>/create</url-pattern>
+   </servlet-mapping>
 </web-app>

@@ -10,7 +10,7 @@
 <html>
 <body>
 <div class="main">
-   <form name="settings">
+   <form name="settings" action="create">
       <div class="settings">
          <table>
             <thead>
