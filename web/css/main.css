@@ -1,0 +1,374 @@
+/* FONT STACK */
+body,
+input, select, textarea {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+/* BASE LAYOUT */
+
+html {
+    background-color: #ddd;
+    background-image: -moz-linear-gradient(center top, #aaa, #ddd);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
+    background-image: linear-gradient(top, #aaa, #ddd);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#aaaaaa', EndColorStr = '#dddddd');
+    background-repeat: no-repeat;
+    height: 100%;
+    /* change the box model to exclude the padding from the calculation of 100% height (IE8+) */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html.no-cssgradients {
+    background-color: #aaa;
+}
+
+.ie6 html {
+    height: 100%;
+}
+
+html * {
+    margin: 0;
+}
+
+body {
+    background: #FFFFFF;
+    color: #4d4d4d;
+    margin: 0 auto;
+    max-width: 960px;
+    font-size: 0.8em;
+    overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
+    -moz-box-shadow: 0 0 0.3em #255b17;
+    -webkit-box-shadow: 0 0 0.3em #255b17;
+    box-shadow: 0 0 0.3em #255b17;
+}
+
+.banner {
+    background-color: #333;
+    height: 100px;
+}
+
+/* replace with .no-boxshadow body if you have modernizr available */
+.ie6 body,
+.ie7 body,
+.ie8 body {
+    border-color: #255b17;
+    border-style: solid;
+    border-width: 0 1px;
+}
+
+.ie6 body {
+    height: 100%;
+}
+
+a:link, a:visited, a:hover {
+    color: #48802c;
+}
+
+a:hover, a:active {
+    outline: none; /* prevents outline in webkit on active links but retains it for tab focus */
+}
+
+h1 {
+    color: #48802c;
+    font-weight: normal;
+    font-size: 1.25em;
+    margin: 0.8em 0 0.3em 0;
+}
+
+ul {
+    padding: 0;
+}
+
+img {
+    border: 0;
+}
+
+/* GENERAL */
+.footer {
+    text-align: center;
+    background: #000000;
+    color: #cccccc;
+    clear: both;
+    margin-top: 1.5em;
+    padding: 1em;
+    min-height: 1em;
+}
+
+.footer a {
+    color: #255b17;
+}
+
+label {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 0.25em 0 0;
+}
+
+textarea {
+    background-color: #CCCCCC;
+    border: 1px solid black;
+    padding: 0.2em 0.4em;
+    width: 250px;
+    height: 150px;
+    overflow: auto; /* IE always renders vertical scrollbar without this */
+    vertical-align: top;
+}
+
+select {
+    background-color: #FFFFFF;
+    border: 1px solid black;
+    padding: 0.2em 0.2em;
+}
+
+input {
+    border: 1px solid black;
+    padding: 0.4em 0.4em;
+    color: #4D4D4D;
+}
+
+input[type="submit"] {
+    font-weight: bold;
+    width: 46%;
+}
+
+input[type="submit"]:hover {
+    background-image: -moz-linear-gradient(top, #dbdbdb, #ffffff);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dbdbdb), color-stop(1, #ffffff));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#dbdbdb', EndColorStr = '#ffffff');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#dbdbdb', EndColorStr='#ffffff')";
+    cursor: pointer;
+}
+
+select[multiple] {
+    vertical-align: top;
+}
+
+input[type=checkbox], input[type=radio] {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+}
+
+input:focus, select:focus, textarea:focus {
+    background-color: #ffffff;
+    border: 1px solid black;
+    outline: 0;
+    -moz-box-shadow: 0 0 0.5em #ffffff;
+    -webkit-box-shadow: 0 0 0.5em #ffffff;
+    box-shadow: 0 0 0.5em #ffffff;
+}
+
+/* MESSAGES AND ERRORS */
+
+.errors, .message {
+    line-height: 2;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-indent: 10px;
+}
+
+.message {
+    background: #ffffff;
+    border: 1px solid #b2d1ff;
+    color: #006dba;
+    -moz-box-shadow: 0 0 0.25em #b2d1ff;
+    -webkit-box-shadow: 0 0 0.25em #b2d1ff;
+    box-shadow: 0 0 0.25em #b2d1ff;
+
+}
+
+.errors {
+    background: #fff3f3;
+    border: 1px solid #ffaaaa;
+    color: #cc0000;
+    -moz-box-shadow: 0 0 0.25em #ff8888;
+    -webkit-box-shadow: 0 0 0.25em #ff8888;
+    box-shadow: 0 0 0.25em #ff8888;
+}
+/* form fields with errors */
+
+.error input, .error select, .error textarea {
+    background: #fff3f3;
+    border-color: #ffaaaa;
+    color: #cc0000;
+}
+
+.error input:focus, .error select:focus, .error textarea:focus {
+    -moz-box-shadow: 0 0 0.5em #ffaaaa;
+    -webkit-box-shadow: 0 0 0.5em #ffaaaa;
+    box-shadow: 0 0 0.5em #ffaaaa;
+}
+
+/* same effects for browsers that support HTML5 client-side validation (these have to be specified separately or IE will ignore the entire rule) */
+
+input:invalid, select:invalid, textarea:invalid {
+    background: #fff3f3;
+    border-color: #ffaaaa;
+    color: #cc0000;
+}
+
+input:invalid:focus, select:invalid:focus, textarea:invalid:focus {
+    -moz-box-shadow: 0 0 0.5em #ffaaaa;
+    -webkit-box-shadow: 0 0 0.5em #ffaaaa;
+    box-shadow: 0 0 0.5em #ffaaaa;
+}
+
+/* TABLES */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+tr {
+    border: 1px solid black;
+}
+
+td, th {
+    line-height: 27px;
+    padding: 6px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+th {
+    font-weight: bold;
+    text-align: center;
+}
+
+thead th {
+    white-space: nowrap;
+}
+
+th a {
+    display: block;
+    text-decoration: none;
+}
+
+th a:link, th a:visited {
+    color: #666666;
+}
+
+th a:hover, th a:focus {
+    color: #333333;
+}
+
+th.sortable a {
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: 1.1em;
+}
+
+.odd {
+    background: #f7f7f7;
+}
+
+.even {
+    background: #ffffff;
+}
+
+.main {
+    margin: 20px;
+    text-align: center;
+}
+
+.header {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid black;
+    font-weight: bold;
+    text-align: center;
+    font-size: 2em;
+    padding: 10px;
+    -moz-box-shadow: 0 0 0.25em #000000;
+    -webkit-box-shadow: 0 0 0.25em #000000;
+    box-shadow: 0 0 0.25em #000000;
+}
+
+.header, input[type="submit"], th {
+    background-image: -moz-linear-gradient(top, #ffffff, #dbdbdb);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #dbdbdb));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ffffff', EndColorStr = '#dbdbdb');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#dbdbdb')";
+}
+
+.drop {
+    float: right;
+}
+
+.settings th, td {
+    width: 25%;
+}
+
+.players th, td {
+    width: 50%;
+}
+
+.show th, td {
+    width: 23%;
+}
+
+.show .versus {
+    width: 8%
+}
+
+.results .value {
+    width: 8%
+}
+
+.results .names {
+   width: 26%;
+}
+
+.results .opponents {
+   width: 26%;
+}
+
+/* css for opponents showing up on mouseover */
+.results .opponents {
+   position: relative;
+}
+
+.results .opponents .list {
+   display: none;
+}
+
+.results .opponents:hover .list {
+   display: block;
+}
+
+.results .opponents .title {
+    display: block;
+}
+
+.results .opponents:hover .title {
+    display: none;
+}
+
+/* css for drop button showing up on mouseover */
+.results .names {
+   position: relative;
+}
+
+.results .names .drop {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   display: none;
+   opacity: 0.4;
+   filter: alpha(opacity=40);
+}
+
+.results .names:hover .drop {
+   display: block;
+}
+
+.results .names .drop:hover {
+   opacity:1.0;
+   filter:alpha(opacity=100);
+}
