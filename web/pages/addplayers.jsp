@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="header.jsp"%>
+<%@ include file="/includes/header.jsp"%>
 <html>
 <body>
 <div class="main">
@@ -23,13 +23,13 @@
                </th>
             </tr>
             </thead>
-            <% for(int i = 1; i < 5; i++){ %>
+            <% for(int i = 1; i < Integer.valueOf(request.getSession().getAttribute("howManyPlayers").toString()); i++){ %>
             <tr>
                <td>
                   Player <%= i %>
                </td>
                <td>
-                  <textfield name="player <%= i %>"></textfield>
+                  <input type="text" name="player <%= i %>">
                </td>
             </tr>
             <% } %>
@@ -40,4 +40,4 @@
 </div>
 </body>
 </html>
-<%@ include file="footer.jsp"%>
+<%@ include file="/includes/footer.jsp"%>

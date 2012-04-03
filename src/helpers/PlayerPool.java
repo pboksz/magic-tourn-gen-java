@@ -1,6 +1,7 @@
-package magic.tournament.generator;
+package helpers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
 import java.util.SortedMap;
@@ -27,6 +28,18 @@ public class PlayerPool
       for(Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()){
          listOfPlayers.add(infoEntry.getValue());
       }
+      return listOfPlayers;
+   }
+   
+   public static ArrayList<PlayerInfo> getSeedSortedListOfPlayers() {
+      ArrayList<PlayerInfo> listOfPlayers = getListOfPlayers();
+      Collections.sort(listOfPlayers, new SeedComparator());
+      return listOfPlayers;
+   }
+
+   public static ArrayList<PlayerInfo> getRankSortedListOfPlayers() {
+      ArrayList<PlayerInfo> listOfPlayers = getListOfPlayers();
+      Collections.sort(listOfPlayers, new RankComparator());
       return listOfPlayers;
    }
 

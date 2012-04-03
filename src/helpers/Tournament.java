@@ -1,4 +1,4 @@
-package magic.tournament.generator;
+package helpers;
 
 /**
  * {NAME}
@@ -8,6 +8,8 @@ package magic.tournament.generator;
  */
 public class Tournament
 {
+   private static Tournament tournament;
+
    private int prevRound = 0;
    private int round = 1;
    private int numPlayers;
@@ -20,6 +22,14 @@ public class Tournament
       this.maxRound = maxRound;
       this.bestOf = bestOf;
       this.format = format;
+   }
+
+   public static void newTournament(int numPlayers, int maxRounds, int bestOf, String format) {
+      tournament = new Tournament(numPlayers, maxRounds, bestOf, format);
+   }
+
+   public static Tournament getTournament() {
+      return tournament;
    }
 
    public int getPrevRound() {

@@ -1,4 +1,4 @@
-package magic.tournament.generator;
+package helpers;
 
 import java.util.ArrayList;
 import java.util.SortedMap;

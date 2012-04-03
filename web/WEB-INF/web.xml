@@ -7,10 +7,20 @@
 
    <servlet>
       <servlet-name>create</servlet-name>
-      <servlet-class>CreateController</servlet-class>
+      <servlet-class>controllers.CreateController</servlet-class>
    </servlet>
    <servlet-mapping>
       <servlet-name>create</servlet-name>
       <url-pattern>/create</url-pattern>
    </servlet-mapping>
+
+   <servlet>
+      <servlet-name>register</servlet-name>
+      <servlet-class>controllers.RegisterController</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>register</servlet-name>
+      <url-pattern>/register</url-pattern>
+   </servlet-mapping>
+
 </web-app>

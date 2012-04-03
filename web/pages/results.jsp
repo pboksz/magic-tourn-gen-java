@@ -1,5 +1,5 @@
-<%@ page import="magic.tournament.generator.PlayerInfo" %>
-<%@ page import="magic.tournament.generator.PlayerPool" %>
+<%@ page import="helpers.PlayerInfo" %>
+<%@ page import="helpers.PlayerPool" %>
 <%--
   Created by IntelliJ IDEA.
   User: phillip
@@ -8,7 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="header.jsp"%>
+<%@ include file="/includes/header.jsp"%>
 <html>
 <body>
 <div class="main">
@@ -54,6 +54,7 @@
                </th>
             </tr>
             </thead>
+            <%--TODO--%>
             <% for(PlayerInfo result : PlayerPool.getListOfPlayers()){ %>
             <tr>
                <td class="value">
@@ -99,4 +100,4 @@
 </div>
 </body>
 </html>
-<%@ include file="footer.jsp"%>
+<%@ include file="/includes/footer.jsp"%>

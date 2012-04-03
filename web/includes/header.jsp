@@ -18,7 +18,19 @@
       <img src="/images/mtg-header.png" alt="Magic Tournament Generator"/>
    </div>
    <div class="header">
-      Header?
+      <%= request.getAttribute("title") %>
    </div>
+
+   <% if(request.getAttribute("message") != null) { %>">
+      <div class="message">
+         <%= request.getAttribute("message") %>
+      </div>
+   <% } %>
+
+   <% if(request.getAttribute("error") != null) { %>">
+   <div class="error">
+      <%= request.getAttribute("error") %>
+   </div>
+   <% } %>
 </body>
 </html>
