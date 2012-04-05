@@ -22,6 +22,14 @@ public class PlayerPool
    public static SortedMap<String, PlayerInfo> getMapOfPlayers() {
       return mapOfPlayers;
    }
+   
+   public static SortedMap<String, PlayerInfo> cloneMapOfPlayers() {
+      SortedMap<String, PlayerInfo> cloneMap = new TreeMap<String, PlayerInfo>();
+      for(Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()){
+         cloneMap.put(infoEntry.getKey(), infoEntry.getValue());
+      }
+      return cloneMap;
+   }
 
    public static ArrayList<PlayerInfo> getListOfPlayers() {
       ArrayList<PlayerInfo> listOfPlayers = new ArrayList<PlayerInfo>();

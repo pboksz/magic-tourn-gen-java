@@ -12,7 +12,7 @@
 <html>
 <body>
 <div class="main">
-   <form name="show">
+   <form name="show" action="nextround">
       <div class="show">
          <table>
             <thead>

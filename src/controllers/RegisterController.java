@@ -34,8 +34,7 @@ public class RegisterController extends HttpServlet
          PlayerPool.registerPlayers(playerNames);
       }
 
-      ArrayList<PlayerInfo> listOfPlayers = PlayerPool.getListOfPlayers();
-      //TODO sort listOfPlayers
+      ArrayList<PlayerInfo> listOfPlayers = PlayerPool.getRankSortedListOfPlayers();
       session.setAttribute("players", listOfPlayers);
       response.sendRedirect("/pages/registered.jsp");
    }

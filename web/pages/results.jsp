@@ -1,5 +1,6 @@
 <%@ page import="helpers.PlayerInfo" %>
 <%@ page import="helpers.PlayerPool" %>
+<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: phillip
@@ -12,7 +13,7 @@
 <html>
 <body>
 <div class="main">
-   <form name="results">
+   <form name="results" action="show">
       <div class="results">
          <table>
             <thead>
@@ -54,8 +55,7 @@
                </th>
             </tr>
             </thead>
-            <%--TODO--%>
-            <% for(PlayerInfo result : PlayerPool.getListOfPlayers()){ %>
+            <% for(PlayerInfo result : (ArrayList<PlayerInfo>) session.getAttribute("results")){ %>
             <tr>
                <td class="value">
                   <%= result.getRank() %>
@@ -63,9 +63,9 @@
                <td class="names">
                   <%= result.getName() %>
                   <% if (true) { %>
-                     <div class="drop">
-                        <img src="/images/delete.png" alt="Drop Player">
-                     </div>
+                     <form class="drop" action="dropplayer">
+                        <input type="image" src="/images/delete.png" alt="Drop Player">
+                     </form>
                   <% } %>
                </td>
                <td class="opponents">
@@ -95,7 +95,9 @@
             <% } %>
          </table>
       </div>
-      <input type="submit" value="Submit Round Results">
+      <% if(session.getAttribute("title") != "Final Results") { %>
+         <input type="submit" value="Submit Round Results">
+      <% } %>
    </form>
 </div>
 </body>

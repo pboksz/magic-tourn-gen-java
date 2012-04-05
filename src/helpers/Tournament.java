@@ -9,7 +9,8 @@ package helpers;
 public class Tournament
 {
    private static Tournament tournament;
-
+   private static RoundPairings roundPairings;
+   
    private int prevRound = 0;
    private int round = 1;
    private int numPlayers;
@@ -26,10 +27,15 @@ public class Tournament
 
    public static void newTournament(int numPlayers, int maxRounds, int bestOf, String format) {
       tournament = new Tournament(numPlayers, maxRounds, bestOf, format);
+      roundPairings = new RoundPairings(tournament);
    }
 
    public static Tournament getTournament() {
       return tournament;
+   }
+
+   public static RoundPairings getRoundPairings() {
+      return roundPairings;
    }
 
    public int getPrevRound() {

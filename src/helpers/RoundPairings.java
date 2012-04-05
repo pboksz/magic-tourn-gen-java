@@ -24,7 +24,7 @@ public class RoundPairings
     *
     * @return a list of players with final ranks in place
     */
-   public ArrayList<PlayerInfo> showCurrentRankings()
+   public ArrayList<PlayerInfo> getCurrentRankings()
    {
       ArrayList<PlayerInfo> listOfPlayers = PlayerPool.getRankSortedListOfPlayers();
       int rank = 1;

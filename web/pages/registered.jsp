@@ -12,7 +12,7 @@
 <html>
 <body>
 <div class="main">
-   <form name="register">
+   <form name="register" action="show">
       <div class="players">
          <table>
             <thead>

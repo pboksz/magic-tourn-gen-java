@@ -19,17 +19,18 @@ public class CreateController extends HttpServlet
 {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
    {
-      int numPlayers = Integer.valueOf(request.getParameter("howManyPlayers"));
-      int maxRounds = Integer.valueOf(request.getParameter("howManyRounds"));
-      int bestOf = Integer.valueOf(request.getParameter("bestOf"));
-      String format = request.getParameter("whichFormat");
+      HttpSession session = request.getSession();
+      session.setAttribute("title", "Add Players");
+      session.setAttribute("message", "Please enter each player's name. If left blank the player's name will default to the format [ player# ].");
+
+      int numPlayers = (Integer) session.getAttribute("howManyPlayers");
+      int maxRounds = (Integer) session.getAttribute("howManyRounds");
+      int bestOf = (Integer) session.getAttribute("bestOf");
+      String format = (String) session.getAttribute("whichFormat");
 
       Tournament.newTournament(numPlayers, maxRounds, bestOf, format);
 
-      HttpSession session = request.getSession();
       session.setAttribute("howManyPlayers", numPlayers);
-      session.setAttribute("title", "Add Players");
-      session.setAttribute("message", "Please enter each player's name. If left blank the player's name will default to the format [ player# ].");
       response.sendRedirect("/pages/addplayers.jsp");
    }
 }

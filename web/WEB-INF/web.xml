@@ -23,4 +23,31 @@
       <url-pattern>/register</url-pattern>
    </servlet-mapping>
 
+   <servlet>
+      <servlet-name>show</servlet-name>
+      <servlet-class>controllers.ShowController</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>show</servlet-name>
+      <url-pattern>/show</url-pattern>
+   </servlet-mapping>
+
+   <servlet>
+      <servlet-name>nextround</servlet-name>
+      <servlet-class>controllers.NextRoundController</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>nextround</servlet-name>
+      <url-pattern>/nextround</url-pattern>
+   </servlet-mapping>
+
+   <servlet>
+      <servlet-name>results</servlet-name>
+      <servlet-class>controllers.ResultsController</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>results</servlet-name>
+      <url-pattern>/results</url-pattern>
+   </servlet-mapping>
+
 </web-app>
