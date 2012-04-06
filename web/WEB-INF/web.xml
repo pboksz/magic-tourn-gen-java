@@ -41,15 +41,6 @@
       <url-pattern>/nextround</url-pattern>
    </servlet-mapping>
 
-   <servlet>
-      <servlet-name>results</servlet-name>
-      <servlet-class>controllers.ResultsController</servlet-class>
-   </servlet>
-   <servlet-mapping>
-      <servlet-name>results</servlet-name>
-      <url-pattern>/results</url-pattern>
-   </servlet-mapping>
-
    <welcome-file-list>
       <welcome-file>pages/index.jsp</welcome-file>
    </welcome-file-list>

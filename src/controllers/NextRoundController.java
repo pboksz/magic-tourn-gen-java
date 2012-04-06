@@ -33,7 +33,7 @@ public class NextRoundController extends HttpServlet
       String[] playerWins = request.getParameterValues("wins");
       String[] playerLosses = request.getParameterValues("losses");
       int round = tournament.getRound();
-      int maxWins = (int) Math.ceil(tournament.getBestOf() / 2);
+      int maxWins = tournament.getMaxWins();
       int bestOf = tournament.getBestOf();
 
       boolean hasErrors = validateValues(playerWins, playerLosses, maxWins, bestOf);
@@ -50,8 +50,8 @@ public class NextRoundController extends HttpServlet
          }
          tournament.nextRound();
 
-         String title = "Round " + tournament.getRound() + " Standings";
-         if(tournament.getRound() == tournament.getMaxRound()) {
+         String title = "Round " + tournament.getPrevRound() + " Standings";
+         if(tournament.getRound() > tournament.getMaxRound()) {
             title = "Final Results";
          }
          request.setAttribute("title", title);
@@ -61,7 +61,7 @@ public class NextRoundController extends HttpServlet
       }
       else
       {
-         request.setAttribute("title", "Round" + tournament.getRound());
+         request.setAttribute("title", "Round " + tournament.getRound());
          request.setAttribute("message", "Please enter the wins of each player and opponent.");
          request.setAttribute("error", "The values for wins for each player has to be a number, cannot be blank, cannot be less than 0 and should sum to " + tournament.getBestOf() + " or less.");
 

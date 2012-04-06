@@ -17,21 +17,21 @@ class RankComparator implements Comparator
          {
             if (info1.getIndividualWins() == info2.getIndividualWins())
             {
-               return (info1.getIndividualLosses() - info2.getIndividualLosses());
+               return (info2.getIndividualLosses() - info1.getIndividualLosses());
             }
             else
             {
-               return (info1.getIndividualWins() - info2.getIndividualWins());
+               return (info2.getIndividualWins() - info1.getIndividualWins());
             }
          }
          else
          {
-            return (info1.getRoundByes() - info2.getRoundByes());
+            return (info2.getRoundByes() - info1.getRoundByes());
          }
       }
       else
       {
-         return (info1.getRoundWins() - info2.getRoundWins());
+         return (info2.getRoundWins() - info1.getRoundWins());
       }
    }
 }

@@ -27,8 +27,8 @@
       </div>
    <% } %>
 
-   <% if(request.getAttribute("error") != null) { %>">
-   <div class="error">
+   <% if(request.getAttribute("error") != null) { %>
+   <div class="errors">
       <%= request.getAttribute("error") %>
    </div>
    <% } %>
