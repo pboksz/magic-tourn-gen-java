@@ -1,5 +1,7 @@
 package helpers;
 
+import java.util.ArrayList;
+
 /**
  * {NAME}
  * Author: Phillip Boksz
@@ -9,8 +11,8 @@ package helpers;
 public class Tournament
 {
    private static Tournament tournament;
-   private static RoundPairings roundPairings;
-   
+   private PlayerPool playerPool;
+
    private int prevRound = 0;
    private int round = 1;
    private int numPlayers;
@@ -23,19 +25,19 @@ public class Tournament
       this.maxRound = maxRound;
       this.bestOf = bestOf;
       this.format = format;
+      this.playerPool = new PlayerPool();
    }
-
-   public static void newTournament(int numPlayers, int maxRounds, int bestOf, String format) {
-      tournament = new Tournament(numPlayers, maxRounds, bestOf, format);
-      roundPairings = new RoundPairings(tournament);
+   
+   public static void newTournament(int numPlayers, int maxRound, int bestOf, String format){
+      tournament = new Tournament(numPlayers, maxRound, bestOf, format);
    }
 
    public static Tournament getTournament() {
       return tournament;
    }
 
-   public static RoundPairings getRoundPairings() {
-      return roundPairings;
+   public PlayerPool getPlayerPool() {
+      return playerPool;
    }
 
    public int getPrevRound() {
@@ -72,5 +74,21 @@ public class Tournament
 
    public boolean isNextRound() {
       return round > prevRound;
+   }
+
+   /**
+    * sets each players final ranking when called on
+    *
+    * @return a list of players with final ranks in place
+    */
+   public ArrayList<PlayerInfo> getCurrentRankings()
+   {
+      ArrayList<PlayerInfo> listOfPlayers = playerPool.getRankSortedListOfPlayers();
+      int rank = 1;
+      for (PlayerInfo player : listOfPlayers)
+      {
+         player.setRank(rank++);
+      }
+      return listOfPlayers;
    }
 }

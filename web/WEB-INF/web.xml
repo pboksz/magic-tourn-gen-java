@@ -50,4 +50,13 @@
       <url-pattern>/results</url-pattern>
    </servlet-mapping>
 
+   <welcome-file-list>
+      <welcome-file>pages/index.jsp</welcome-file>
+   </welcome-file-list>
+
+   <icon>
+      <small-icon>/images/favicon.ico</small-icon>
+      <large-icon>/images/favicon.ico</large-icon>
+   </icon>
+
 </web-app>

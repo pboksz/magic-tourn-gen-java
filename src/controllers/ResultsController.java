@@ -5,10 +5,10 @@ import helpers.Tournament;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * {NAME}
@@ -18,19 +18,18 @@ import javax.servlet.http.HttpSession;
  */
 public class ResultsController extends HttpServlet
 {
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
       Tournament tournament = Tournament.getTournament();
-      RoundPairings roundPairings = Tournament.getRoundPairings();
+      RoundPairings roundPairings = new RoundPairings();
 
-      HttpSession session = request.getSession();
       String title = "Round " + tournament.getRound() + " Standings";
       if(tournament.getRound() == tournament.getMaxRound()) {
          title = "Final Results";
       }
-      session.setAttribute("title", title);
-      session.setAttribute("results", roundPairings.getCurrentRankings());
+      request.setAttribute("title", title);
+      request.setAttribute("results", tournament.getCurrentRankings());
 
-      response.sendRedirect("/pages/results.jsp");
+      getServletContext().getRequestDispatcher("/pages/results.jsp").forward(request, response);
    }
 }

@@ -1,15 +1,16 @@
 package controllers;
 
-import helpers.PlayerInfo;
 import helpers.PlayerPool;
+import helpers.Tournament;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * {NAME}
@@ -19,23 +20,27 @@ import javax.servlet.http.HttpSession;
  */
 public class RegisterController extends HttpServlet
 {
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
-      HttpSession session = request.getSession();
-      session.setAttribute("title", "Registered Players");
-      session.setAttribute("message", "Players will be paired by the order in which they are seeded.");
+      Tournament tournament = Tournament.getTournament();
+      PlayerPool playerPool = tournament.getPlayerPool();
 
-      if(PlayerPool.getListOfPlayers() == null){
+      request.setAttribute("title", "Registered Players");
+      request.setAttribute("message", "Players will be paired by the order in which they are seeded");
+
+      if(playerPool.getListOfPlayers().isEmpty()){
          ArrayList<String> playerNames = new ArrayList<String>();
-         String[] params = request.getParameterValues("player");
-         for(String param : params) {
-            playerNames.add(param);
+         Map params = request.getParameterMap();
+         for (Object key : params.keySet())
+         {
+            String value = ((String[]) params.get(key))[0];
+            String name = value.equals("") ? (String) key : value;
+            playerNames.add(name);
          }
-         PlayerPool.registerPlayers(playerNames);
+         playerPool.registerPlayers(playerNames);
       }
+      request.setAttribute("seedSorted", playerPool.getSeedSortedListOfPlayers());
 
-      ArrayList<PlayerInfo> listOfPlayers = PlayerPool.getRankSortedListOfPlayers();
-      session.setAttribute("players", listOfPlayers);
-      response.sendRedirect("/pages/registered.jsp");
+      getServletContext().getRequestDispatcher("/pages/register.jsp").forward(request, response);
    }
 }

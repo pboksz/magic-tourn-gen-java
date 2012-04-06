@@ -2,10 +2,10 @@ package controllers;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * {NAME}
@@ -15,11 +15,11 @@ import javax.servlet.http.HttpSession;
  */
 public class NewTournamentController extends HttpServlet
 {
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
-      HttpSession session = request.getSession();
-      session.setAttribute("title", "Tournament Settings");
-      session.setAttribute("message", "Please select the tournament settings.");
-      response.sendRedirect("/pages/index.jsp");
+      request.setAttribute("title", "Tournament Settings");
+      request.setAttribute("message", "Please select the tournament settings.");
+
+      getServletContext().getRequestDispatcher("/pages/index.jsp").forward(request, response);
    }
 }

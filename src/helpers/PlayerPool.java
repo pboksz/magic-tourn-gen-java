@@ -15,15 +15,15 @@ import java.util.TreeMap;
  */
 public class PlayerPool
 {
-   private static SortedMap<String, PlayerInfo> mapOfPlayers = new TreeMap<String, PlayerInfo>();
-   private static Random seed = new Random();
-   private static int maxDroppable = 1;
+   private SortedMap<String, PlayerInfo> mapOfPlayers = new TreeMap<String, PlayerInfo>();
+   private Random seed = new Random();
+   private int maxDroppable = 1;
 
-   public static SortedMap<String, PlayerInfo> getMapOfPlayers() {
+   public SortedMap<String, PlayerInfo> getMapOfPlayers() {
       return mapOfPlayers;
    }
    
-   public static SortedMap<String, PlayerInfo> cloneMapOfPlayers() {
+   public SortedMap<String, PlayerInfo> cloneMapOfPlayers() {
       SortedMap<String, PlayerInfo> cloneMap = new TreeMap<String, PlayerInfo>();
       for(Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()){
          cloneMap.put(infoEntry.getKey(), infoEntry.getValue());
@@ -31,7 +31,7 @@ public class PlayerPool
       return cloneMap;
    }
 
-   public static ArrayList<PlayerInfo> getListOfPlayers() {
+   public ArrayList<PlayerInfo> getListOfPlayers() {
       ArrayList<PlayerInfo> listOfPlayers = new ArrayList<PlayerInfo>();
       for(Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()){
          listOfPlayers.add(infoEntry.getValue());
@@ -39,23 +39,23 @@ public class PlayerPool
       return listOfPlayers;
    }
    
-   public static ArrayList<PlayerInfo> getSeedSortedListOfPlayers() {
+   public ArrayList<PlayerInfo> getSeedSortedListOfPlayers() {
       ArrayList<PlayerInfo> listOfPlayers = getListOfPlayers();
       Collections.sort(listOfPlayers, new SeedComparator());
       return listOfPlayers;
    }
 
-   public static ArrayList<PlayerInfo> getRankSortedListOfPlayers() {
+   public ArrayList<PlayerInfo> getRankSortedListOfPlayers() {
       ArrayList<PlayerInfo> listOfPlayers = getListOfPlayers();
       Collections.sort(listOfPlayers, new RankComparator());
       return listOfPlayers;
    }
 
-   public static int getNumPlayers() {
+   public int getNumPlayers() {
       return mapOfPlayers.size();
    }
 
-   public static void registerPlayers(ArrayList<String> playerNames) {
+   public void registerPlayers(ArrayList<String> playerNames) {
       for(String name : playerNames){
          mapOfPlayers.put(name, new PlayerInfo(name, seed.nextInt(100), playerNames));
 
@@ -63,7 +63,7 @@ public class PlayerPool
       maxDroppable = getNumPlayers()-3;
    }
 
-   public static boolean dropPlayer(int round, String dropped, String getsBye) {
+   public boolean dropPlayer(int round, String dropped, String getsBye) {
       if((round > 1) && (maxDroppable > 0)) {
          mapOfPlayers.remove(dropped);
          maxDroppable--;
@@ -82,7 +82,7 @@ public class PlayerPool
       }
    }
 
-   public static void dropAllPlayers() {
+   public void dropAllPlayers() {
       mapOfPlayers.clear();
    }
 
@@ -94,7 +94,7 @@ public class PlayerPool
     * @param wins the player's wins
     * @param losses the player's losses
     */
-   public static void setPlayerOutcome(String playerName, String opponentName, int round, int wins, int losses) {
+   public void setPlayerOutcome(String playerName, String opponentName, int round, int wins, int losses) {
       PlayerInfo player = mapOfPlayers.get(playerName);
       if (player != null) {
          if (!opponentName.equals("Bye")) {
@@ -121,7 +121,7 @@ public class PlayerPool
     * @param playerName name of player
     * @param opponentName name of opponent
     */
-   public static void setRoundPairing(int round, String playerName, String opponentName) {
+   public void setRoundPairing(int round, String playerName, String opponentName) {
       if (!playerName.equals("Bye")) {
          PlayerInfo player = mapOfPlayers.get(playerName);
          player.addRoundPairing(round, opponentName);
@@ -141,7 +141,7 @@ public class PlayerPool
     * saves the player to the map object by removing the old one, and adding the new one
     * @param player the PlayerInfo object for that player
     */
-   private static void save(PlayerInfo player) {
+   private void save(PlayerInfo player) {
       mapOfPlayers.remove(player.getName());
       mapOfPlayers.put(player.getName(), player);
    }

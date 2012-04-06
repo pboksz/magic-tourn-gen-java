@@ -10,7 +10,7 @@
 <html>
 <body>
 <div class="main">
-   <form name="addplayers">
+   <form name="addplayers" action="register">
       <div class="players">
          <table>
             <thead>
@@ -23,7 +23,8 @@
                </th>
             </tr>
             </thead>
-            <% for(int i = 1; i < Integer.valueOf(request.getSession().getAttribute("howManyPlayers").toString()); i++){ %>
+            <% int numPlayers = (Integer) request.getAttribute("howManyPlayers"); %>
+            <% for(int i = 1; i < (numPlayers+1); i++){ %>
             <tr>
                <td>
                   Player <%= i %>

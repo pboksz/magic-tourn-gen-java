@@ -5,18 +5,12 @@ package helpers;
  */
 class PlayerPairing
 {
-   private int round;
    private String playerName;
    private String opponentName;
 
-   public PlayerPairing(int round, String playerName, String opponentName){
-      this.round = round;
+   public PlayerPairing(String playerName, String opponentName){
       this.playerName = playerName;
       this.opponentName = opponentName;
-   }
-
-   public int getRound(){
-      return round;
    }
 
    public String getPlayerName(){

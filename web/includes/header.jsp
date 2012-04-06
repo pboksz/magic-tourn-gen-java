@@ -10,7 +10,7 @@
    <link rel="stylesheet" href="/css/main.css" type="text/css">
 
    <%--TODO flash messages?--%>
-   <title>Magic Tournament Generator</title>
+   <title>Magic Tournament Generator | <%= request.getAttribute("title")!= null ? request.getAttribute("title") : "Tournament Settings" %></title>
 </head>
 
 <body>
@@ -18,10 +18,10 @@
       <img src="/images/mtg-header.png" alt="Magic Tournament Generator"/>
    </div>
    <div class="header">
-      <%= request.getAttribute("title") %>
+      <%= request.getAttribute("title")!= null ? request.getAttribute("title") : "Tournament Settings" %>
    </div>
 
-   <% if(request.getAttribute("message") != null) { %>">
+   <% if(request.getAttribute("message") != null) { %>
       <div class="message">
          <%= request.getAttribute("message") %>
       </div>

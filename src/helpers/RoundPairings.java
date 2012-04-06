@@ -1,7 +1,6 @@
 package helpers;
 
 import java.util.ArrayList;
-import java.util.SortedMap;
 
 /**
  * {NAME}
@@ -11,57 +10,9 @@ import java.util.SortedMap;
  */
 public class RoundPairings
 {
-   Tournament tournament;
+   Tournament tournament = Tournament.getTournament();
+   PlayerPool playerPool = tournament.getPlayerPool();
    ArrayList<PlayerPairing> queue;
-
-   public RoundPairings(Tournament tournament)
-   {
-      this.tournament = tournament;
-   }
-
-   /**
-    * sets each players final ranking when called on
-    *
-    * @return a list of players with final ranks in place
-    */
-   public ArrayList<PlayerInfo> getCurrentRankings()
-   {
-      ArrayList<PlayerInfo> listOfPlayers = PlayerPool.getRankSortedListOfPlayers();
-      int rank = 1;
-      for (PlayerInfo player : listOfPlayers)
-      {
-         player.setRank(rank++);
-      }
-      //TODO for debugging only
-//      printRankings()
-      return listOfPlayers;
-   }
-
-   /**
-    * method used to print to console for debugging each round
-    */
-   private void printRankings()
-   {
-      ArrayList<PlayerInfo> listOfPlayers = PlayerPool.getRankSortedListOfPlayers();
-      for (PlayerInfo player : listOfPlayers)
-      {
-         System.out.println(player.getRank() + ") " + player.getName());
-         System.out.println("\tRound Wins: " + player.getRoundWins());
-         System.out.println("\tRound Byes: " + player.getRoundByes());
-         System.out.println("\tRound Losses: " + player.getRoundLosses());
-         System.out.println("\tIndividual Wins: " + player.getIndividualWins());
-         System.out.println("\tIndividual Losses: " + player.getIndividualLosses());
-
-         System.out.println("\tOpponents Each Round:");
-         SortedMap<Integer, String> opponentsList = player.getRoundPairings();
-         int size = opponentsList.size();
-         for (int i = 1; i <= size; i++)
-         {
-            System.out.println("\t\t" + i + ") " + opponentsList.get(i));
-         }
-      }
-      System.out.println("------------------------------------------------");
-   }
 
    /**
     * method the recursively tries to set the pairings
@@ -76,17 +27,17 @@ public class RoundPairings
       //if first round get other sorting
       if (tournament.getRound() == 1)
       {
-         sorted = PlayerPool.getSeedSortedListOfPlayers();
+         sorted = playerPool.getSeedSortedListOfPlayers();
       }
       else
       {
-         sorted = PlayerPool.getRankSortedListOfPlayers();
+         sorted = playerPool.getRankSortedListOfPlayers();
       }
       //try doing all the pairings
       trySettingRoundPairings(sorted);
       //after all that activate the pairings in the final queue
       for(PlayerPairing pair : queue){
-         PlayerPool.setRoundPairing(pair.getRound(), pair.getPlayerName(), pair.getOpponentName());
+         playerPool.setRoundPairing(tournament.getRound(), pair.getPlayerName(), pair.getOpponentName());
       }
    }
 
@@ -137,7 +88,7 @@ public class RoundPairings
       {
          queue.clear();
          isFirstPlayer = true;
-         sorted = PlayerPool.getRankSortedListOfPlayers();
+         sorted = playerPool.getRankSortedListOfPlayers();
          tryPairingAllPlayers(sorted, isFirstPlayer, ++firstIndex);
       }
    }
@@ -151,7 +102,7 @@ public class RoundPairings
    private void trySettingLowestBye(ArrayList<PlayerInfo> sorted, int last)
    {
       boolean byeIsNotSet = true;
-      if (PlayerPool.getNumPlayers() == 3)
+      if (playerPool.getNumPlayers() == 3)
       {
          byeIsNotSet = handle3PlayerByes(sorted, last);
       }
@@ -161,7 +112,7 @@ public class RoundPairings
          PlayerInfo player = sorted.get(last);
          if (player.canUseBye())
          {
-            queue.add(new PlayerPairing(tournament.getRound(), player.getName(), player.getOpponent()));
+            queue.add(new PlayerPairing(player.getName(), player.getOpponent()));
             sorted.remove(last);
          }
          else
@@ -189,7 +140,7 @@ public class RoundPairings
          if (sorted.get(last).getPossibleOpponents().size() == 3)
          {
             PlayerInfo player = sorted.get(last - 1);
-            queue.add(new PlayerPairing(tournament.getRound(), player.getName(), "Bye"));
+            queue.add(new PlayerPairing(player.getName(), "Bye"));
             sorted.remove(last - 1);
             byeIsNotSet = false;
          }
@@ -202,7 +153,7 @@ public class RoundPairings
             PlayerInfo player = sorted.get(i);
             if (player.canOnlyGetBye())
             {
-               queue.add(new PlayerPairing(tournament.getRound(), player.getName(), "Bye"));
+               queue.add(new PlayerPairing(player.getName(), "Bye"));
                sorted.remove(i);
                byeIsNotSet = false;
                break;
@@ -231,7 +182,7 @@ public class RoundPairings
          if (player.canPlayThisPlayer(opponent.getName()))
          {
             //add this pair to the queue, as later this may get scrapped
-            queue.add(new PlayerPairing(tournament.getRound(), player.getName(), player.getOpponent()));
+            queue.add(new PlayerPairing(player.getName(), opponent.getName()));
             //remove the player and opponent paired from sorted and reverts back to trySettingRoundPairs() with two players removed
             sorted.remove(pairIndex);
             sorted.remove(0);

@@ -2,4 +2,14 @@
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
   <application>magictourngen</application>
   <version>1</version>
+   <sessions-enabled>true</sessions-enabled>
+   <static-files>
+      <include path="/images/**.png" />
+      <include path="/images/**.jpg" />
+      <include path="/images/**.ico" />
+      <include path="/js/**.js" />
+      <include path="/css/**.css" />
+      <include path="/pages/**.jsp" />
+      <include path="/includes/**.jsp" />
+   </static-files>
 </appengine-web-app>

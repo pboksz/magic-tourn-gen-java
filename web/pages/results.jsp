@@ -55,7 +55,7 @@
                </th>
             </tr>
             </thead>
-            <% for(PlayerInfo result : (ArrayList<PlayerInfo>) session.getAttribute("results")){ %>
+            <% for(PlayerInfo result : (ArrayList<PlayerInfo>) request.getAttribute("results")){ %>
             <tr>
                <td class="value">
                   <%= result.getRank() %>
@@ -95,7 +95,7 @@
             <% } %>
          </table>
       </div>
-      <% if(session.getAttribute("title") != "Final Results") { %>
+      <% if(request.getAttribute("title") != "Final Results") { %>
          <input type="submit" value="Submit Round Results">
       <% } %>
    </form>

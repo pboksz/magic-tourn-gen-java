@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.SortedMap;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * {NAME}
@@ -22,14 +22,14 @@ import javax.servlet.http.HttpSession;
  */
 public class ShowController extends HttpServlet
 {
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
       Tournament tournament = Tournament.getTournament();
-      RoundPairings roundPairings =  Tournament.getRoundPairings();
+      PlayerPool playerPool =  tournament.getPlayerPool();
+      RoundPairings roundPairings =  new RoundPairings();
 
-      HttpSession session = request.getSession();
-      session.setAttribute("title", "Round" + tournament.getRound());
-      session.setAttribute("message", "Please enter the wins of each player and opponent.");
+      request.setAttribute("title", "Round" + tournament.getRound());
+      request.setAttribute("message", "Please enter the wins of each player and opponent");
 
       if(tournament.isNextRound()){
          roundPairings.setRoundPairings();
@@ -37,17 +37,17 @@ public class ShowController extends HttpServlet
       }
 
       ArrayList<PlayerInfo> listOfPairs = new ArrayList<PlayerInfo>();
-      SortedMap<String, PlayerInfo> clonedMapOfPlayers = PlayerPool.cloneMapOfPlayers();
+      SortedMap<String, PlayerInfo> clonedMapOfPlayers = playerPool.cloneMapOfPlayers();
       while(clonedMapOfPlayers.size() != 0) {
          PlayerInfo player = clonedMapOfPlayers.get(clonedMapOfPlayers.firstKey());
          listOfPairs.add(player);
          clonedMapOfPlayers.remove(player.getName());
          clonedMapOfPlayers.remove(player.getOpponent());
       }
-      session.setAttribute("listOfPairs", listOfPairs);
-      session.setAttribute("maxWin", Math.ceil(tournament.getBestOf()/2));
-      session.setAttribute("bestOf", tournament.getBestOf());
-
-      response.sendRedirect("/pages/show.jsp");
+      request.setAttribute("listOfPairs", listOfPairs);
+      request.setAttribute("maxWin", Math.ceil(tournament.getBestOf() / 2));
+      request.setAttribute("bestOf", tournament.getBestOf());
+      
+      getServletContext().getRequestDispatcher("/pages/show.jsp").forward(request, response);
    }
 }

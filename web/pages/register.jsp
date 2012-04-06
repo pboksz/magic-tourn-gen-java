@@ -1,5 +1,6 @@
 <%@ page import="helpers.PlayerInfo" %>
 <%@ page import="helpers.PlayerPool" %>
+<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: phillip
@@ -25,7 +26,7 @@
                </th>
             </tr>
             </thead>
-            <% for(PlayerInfo player : PlayerPool.getListOfPlayers()){ %>
+            <% for(PlayerInfo player : (ArrayList<PlayerInfo>) request.getAttribute("seedSorted")){ %>
             <tr>
                <td>
                   <%= player.getName() %>

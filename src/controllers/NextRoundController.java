@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.SortedMap;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * {NAME}
@@ -22,16 +22,16 @@ import javax.servlet.http.HttpSession;
  */
 public class NextRoundController extends HttpServlet
 {
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
       Tournament tournament = Tournament.getTournament();
-      RoundPairings roundPairings = Tournament.getRoundPairings();
+      PlayerPool playerPool = tournament.getPlayerPool();
+      RoundPairings roundPairings = new RoundPairings();
 
-      HttpSession session = request.getSession();
-      String[] players = (String[]) session.getAttribute("players");
-      String[] opponents = (String[]) session.getAttribute("opponent");
-      String[] playerWins = (String[]) session.getAttribute("wins");
-      String[] playerLosses = (String[]) session.getAttribute("losses");
+      String[] players = request.getParameterValues("player");
+      String[] opponents = request.getParameterValues("opponent");
+      String[] playerWins = request.getParameterValues("wins");
+      String[] playerLosses = request.getParameterValues("losses");
       int round = tournament.getRound();
       int maxWins = (int) Math.ceil(tournament.getBestOf() / 2);
       int bestOf = tournament.getBestOf();
@@ -45,8 +45,8 @@ public class NextRoundController extends HttpServlet
             int playerWon = Integer.valueOf(playerWins[i]);
             int playerLost = Integer.valueOf(playerLosses[i]);
 
-            PlayerPool.setPlayerOutcome(playerName, opponentName, round, playerWon, playerLost);
-            PlayerPool.setPlayerOutcome(opponentName, playerName, round, playerLost, playerWon);
+            playerPool.setPlayerOutcome(playerName, opponentName, round, playerWon, playerLost);
+            playerPool.setPlayerOutcome(opponentName, playerName, round, playerLost, playerWon);
          }
          tournament.nextRound();
 
@@ -54,16 +54,16 @@ public class NextRoundController extends HttpServlet
          if(tournament.getRound() == tournament.getMaxRound()) {
             title = "Final Results";
          }
-         session.setAttribute("title", title);
-         session.setAttribute("results", roundPairings.getCurrentRankings());
+         request.setAttribute("title", title);
+         request.setAttribute("results", tournament.getCurrentRankings());
 
-         response.sendRedirect("/pages/results.jsp");
-
+         getServletContext().getRequestDispatcher("/pages/results.jsp").forward(request, response);
       }
-      else {
-         session.setAttribute("title", "Round" + tournament.getRound());
-         session.setAttribute("message", "Please enter the wins of each player and opponent.");
-         session.setAttribute("error", "The values for wins for each player has to be a number, cannot be blank, cannot be less than 0 and should sum to " + tournament.getBestOf() + " or less.");
+      else
+      {
+         request.setAttribute("title", "Round" + tournament.getRound());
+         request.setAttribute("message", "Please enter the wins of each player and opponent.");
+         request.setAttribute("error", "The values for wins for each player has to be a number, cannot be blank, cannot be less than 0 and should sum to " + tournament.getBestOf() + " or less.");
 
          if (tournament.isNextRound())
          {
@@ -72,7 +72,7 @@ public class NextRoundController extends HttpServlet
          }
 
          ArrayList<PlayerInfo> listOfPairs = new ArrayList<PlayerInfo>();
-         SortedMap<String, PlayerInfo> clonedMapOfPlayers = PlayerPool.cloneMapOfPlayers();
+         SortedMap<String, PlayerInfo> clonedMapOfPlayers = playerPool.cloneMapOfPlayers();
          while (clonedMapOfPlayers.size() != 0)
          {
             PlayerInfo player = clonedMapOfPlayers.get(clonedMapOfPlayers.firstKey());
@@ -80,11 +80,11 @@ public class NextRoundController extends HttpServlet
             clonedMapOfPlayers.remove(player.getName());
             clonedMapOfPlayers.remove(player.getOpponent());
          }
-         session.setAttribute("listOfPairs", listOfPairs);
-         session.setAttribute("maxWin", Math.ceil(tournament.getBestOf() / 2));
-         session.setAttribute("bestOf", tournament.getBestOf());
+         request.setAttribute("listOfPairs", listOfPairs);
+         request.setAttribute("maxWin", Math.ceil(tournament.getBestOf() / 2));
+         request.setAttribute("bestOf", tournament.getBestOf());
 
-         response.sendRedirect("/pages/show.jsp");
+         getServletContext().getRequestDispatcher("/pages/show.jsp").forward(request, response);
       }
    }
 
