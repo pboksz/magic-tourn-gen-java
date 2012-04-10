@@ -43,7 +43,7 @@
                   <input type="hidden" name="player" value="<%= pair.getName() %>">
                </td>
                <td>
-                  <% if(!pair.getName().equals("Bye")) { %>
+                  <% if(!pair.getName().equals("Bye") && !pair.getOpponent().equals("Bye")) { %>
                      <input type="text" name="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, 3)">
                   <% } else { %>
                      <input type="hidden" name="wins" value="-1">
@@ -57,7 +57,7 @@
                   <input type="hidden" name="opponent" value="<%= pair.getOpponent() %>">
                </td>
                <td>
-                  <% if(!pair.getOpponent().equals("Bye")) { %>
+                  <% if(!pair.getName().equals("Bye") && !pair.getOpponent().equals("Bye")) { %>
                      <input type="text" name="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, 3)">
                   <% } else { %>
                      <input type="hidden" name="losses" value="-1">

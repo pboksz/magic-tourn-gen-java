@@ -112,7 +112,7 @@ public class RoundPairings
          PlayerInfo player = sorted.get(last);
          if (player.canUseBye())
          {
-            queue.add(new PlayerPairing(player.getName(), player.getOpponent()));
+            queue.add(new PlayerPairing(player.getName(), "Bye"));
             sorted.remove(last);
          }
          else

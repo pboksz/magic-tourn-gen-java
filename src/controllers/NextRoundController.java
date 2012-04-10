@@ -94,18 +94,20 @@ public class NextRoundController extends HttpServlet
       boolean hasErrors = false;
       for (int i = 0; i < playerWins.length; i++)
       {
-         if (playerWins[i].matches("[0-maxWins]") && (playerLosses[i].matches("[0-maxWins]")))
-         {
-            int wins = Integer.valueOf(playerWins[i]);
-            int losses = Integer.valueOf(playerLosses[i]);
-            if ((wins + losses > bestOf))
+         if((!playerWins[i].equals("-1")) && (!playerLosses[i].equals("-1"))){
+            if (playerWins[i].matches("[0-maxWins]") && (playerLosses[i].matches("[0-maxWins]")))
+            {
+               int wins = Integer.valueOf(playerWins[i]);
+               int losses = Integer.valueOf(playerLosses[i]);
+               if ((wins + losses > bestOf))
+               {
+                  hasErrors = true;
+               }
+            }
+            else
             {
                hasErrors = true;
             }
-         }
-         else
-         {
-            hasErrors = true;
          }
       }
       return hasErrors;
