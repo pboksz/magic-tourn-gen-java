@@ -23,12 +23,20 @@ public class DropController extends HttpServlet
       Tournament tournament = Tournament.getTournament();
       PlayerPool playerPool = tournament.getPlayerPool();
 
-      String dropped = request.getParameter("dropped");
-      String getsBye = request.getParameter("getsbye");
+      String info = request.getParameter("dropped");
+      String dropped = info.split(":")[0];
+      String getsBye = info.split(":")[1];
       
       if(!playerPool.dropPlayer(tournament.getRound(), dropped, getsBye)){
-         request.setAttribute("error", dropped + " cannot be dropped because there would not be enough players left to adequately pair everyone in the remaining rounds.");
+         request.setAttribute("error", dropped + " cannot be dropped because there would not be enough players left to adequately pair everyone in the remaining rounds");
       }
+      String title = "Round " + tournament.getPrevRound() + " Standings";
+      if(tournament.getRound() > tournament.getMaxRound()) {
+         title = "Final Results";
+      }
+      request.setAttribute("title", title);
+      request.setAttribute("droppable", tournament.getPlayerPool().hasDroppable());
+      request.setAttribute("results", tournament.getCurrentRankings());
 
       getServletContext().getRequestDispatcher("/pages/results.jsp").forward(request, response);
    }

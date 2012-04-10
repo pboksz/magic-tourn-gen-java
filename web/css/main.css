@@ -12,7 +12,6 @@ html {
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#aaaaaa', EndColorStr = '#dddddd');
     background-repeat: no-repeat;
-    height: 100%;
     /* change the box model to exclude the padding from the calculation of 100% height (IE8+) */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -38,7 +37,6 @@ body {
     margin: 0 auto;
     max-width: 960px;
     display: block;
-    height: 100%;
     font-size: 0.8em;
     overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
     -moz-box-shadow: 0 0 0.3em #255b17;
@@ -330,6 +328,8 @@ th.sortable a {
 }
 
 .results .opponents .title {
+    font-weight: bold;
+    text-decoration: underline;
     display: block;
 }
 
@@ -344,8 +344,8 @@ th.sortable a {
 
 .results .names .drop {
    position: absolute;
-   top: 10px;
-   right: 10px;
+   top: 12px;
+   right: 12px;
    display: none;
    opacity: 0.4;
    filter: alpha(opacity=40);

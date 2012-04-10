@@ -1,6 +1,6 @@
 function dropCheck(who)
 {
-   return confirm("Do you really want to drop " + who + " from the tournament?");
+   return confirm("Do you really want to drop [ " + who + " ] from the tournament?");
 }
 
 function addRounds(numPlayers)

@@ -30,6 +30,7 @@
    <% } %>
 
    <% if(request.getAttribute("error") != null) { %>
+
    <div class="errors">
       <%= request.getAttribute("error") %>
    </div>

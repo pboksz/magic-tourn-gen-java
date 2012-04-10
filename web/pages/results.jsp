@@ -62,11 +62,13 @@
                </td>
                <td class="names">
                   <%= result.getName() %>
-                  <% if ((Boolean) request.getAttribute("droppable")) { %>
-                     <form class="drop" action="drop">
-                        <input type="image" src="/images/delete.png" alt="Drop Player">
-                     </form>
-                  <% } %>
+                  <div class="drop">
+                     <% if ((Boolean) request.getAttribute("droppable")) { %>
+                        <form action="drop" onclick="return dropCheck('<%= result.getName() %>')">
+                           <input type="image" name="dropped" src="/images/delete.png" alt="Drop Player" value="<%= result.getName() + ":" + result.getOpponent()%>" style="border: 0; padding: 0" >
+                        </form>
+                     <% } %>
+                  </div>
                </td>
                <td class="opponents">
                   <div class="title">View Opponents</div>
