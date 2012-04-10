@@ -55,7 +55,7 @@ public class NextRoundController extends HttpServlet
             title = "Final Results";
          }
          request.setAttribute("title", title);
-         request.setAttribute("droppable", tournament.getPlayerPool().hasDroppable());
+         request.setAttribute("droppable", (tournament.getPlayerPool().hasDroppable() && (tournament.getRound() <= tournament.getMaxRound())));
          request.setAttribute("results", tournament.getCurrentRankings());
 
          getServletContext().getRequestDispatcher("/pages/results.jsp").forward(request, response);

@@ -17,7 +17,7 @@ class RankComparator implements Comparator
          {
             if (info1.getIndividualWins() == info2.getIndividualWins())
             {
-               return (info2.getIndividualLosses() - info1.getIndividualLosses());
+               return (info1.getIndividualLosses() - info2.getIndividualLosses());
             }
             else
             {
