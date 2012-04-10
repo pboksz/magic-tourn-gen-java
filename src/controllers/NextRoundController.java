@@ -33,7 +33,7 @@ public class NextRoundController extends HttpServlet
       String[] playerWins = request.getParameterValues("wins");
       String[] playerLosses = request.getParameterValues("losses");
       int round = tournament.getRound();
-      int maxWins = (int) Math.ceil(tournament.getBestOf() / 2);
+      int maxWins = tournament.getMaxWins();
       int bestOf = tournament.getBestOf();
 
       boolean hasErrors = validateValues(playerWins, playerLosses, maxWins, bestOf);

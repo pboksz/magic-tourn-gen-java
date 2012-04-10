@@ -60,6 +60,10 @@ public class Tournament
       return bestOf;
    }
 
+   public int getMaxWins() {
+      return (int) Math.ceil(bestOf/2.0);
+   }
+
    public String getFormat() {
       return format;
    }
