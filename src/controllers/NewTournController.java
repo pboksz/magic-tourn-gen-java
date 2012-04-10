@@ -13,12 +13,13 @@ import javax.servlet.http.HttpServletResponse;
  * Date: 4/5/12
  * Time: 2:21 PM
  */
-public class NewTournamentController extends HttpServlet
+public class NewTournController extends HttpServlet
 {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
       request.setAttribute("title", "Tournament Settings");
-      request.setAttribute("message", "Please select the tournament settings.");
+      request.setAttribute("message", "Please select the tournament settings");
+      request.setAttribute("error", "The tournament has been reset");
 
       getServletContext().getRequestDispatcher("/pages/index.jsp").forward(request, response);
    }

@@ -10,15 +10,17 @@
    <link rel="stylesheet" href="/css/main.css" type="text/css">
 
    <%--TODO flash messages?--%>
-   <title>Magic Tournament Generator | <%= request.getAttribute("title")!= null ? request.getAttribute("title") : "Tournament Settings" %></title>
+   <title>Magic Tournament Generator | <%= request.getAttribute("title") %></title>
 </head>
 
 <body>
    <div class="banner">
-      <img src="/images/mtg-header.png" alt="Magic Tournament Generator"/>
+      <form class="new" action="new">
+         <input type="image" src="/images/mtg-header.png" alt="Magic Tournament Generator" style="border: 0; padding: 0;">
+      </form>
    </div>
    <div class="header">
-      <%= request.getAttribute("title")!= null ? request.getAttribute("title") : "Tournament Settings" %>
+      <%= request.getAttribute("title") %>
    </div>
 
    <% if(request.getAttribute("message") != null) { %>
@@ -27,7 +29,7 @@
       </div>
    <% } %>
 
-   <% if(request.getAttribute("error") != null) { %>">
+   <% if(request.getAttribute("error") != null) { %>
    <div class="error">
       <%= request.getAttribute("error") %>
    </div>

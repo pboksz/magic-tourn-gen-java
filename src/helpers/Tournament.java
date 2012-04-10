@@ -64,6 +64,10 @@ public class Tournament
       return format;
    }
 
+   public int getMaxWins() {
+      return (int) Math.ceil(bestOf/2.0);
+   }
+   
    public void nextRound() {
       this.round++;
    }

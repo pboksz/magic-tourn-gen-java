@@ -50,18 +50,19 @@ public class NextRoundController extends HttpServlet
          }
          tournament.nextRound();
 
-         String title = "Round " + tournament.getRound() + " Standings";
-         if(tournament.getRound() == tournament.getMaxRound()) {
+         String title = "Round " + tournament.getPrevRound() + " Standings";
+         if(tournament.getRound() > tournament.getMaxRound()) {
             title = "Final Results";
          }
          request.setAttribute("title", title);
+         request.setAttribute("droppable", tournament.getPlayerPool().hasDroppable());
          request.setAttribute("results", tournament.getCurrentRankings());
 
          getServletContext().getRequestDispatcher("/pages/results.jsp").forward(request, response);
       }
       else
       {
-         request.setAttribute("title", "Round" + tournament.getRound());
+         request.setAttribute("title", "Round " + tournament.getRound());
          request.setAttribute("message", "Please enter the wins of each player and opponent.");
          request.setAttribute("error", "The values for wins for each player has to be a number, cannot be blank, cannot be less than 0 and should sum to " + tournament.getBestOf() + " or less.");
 

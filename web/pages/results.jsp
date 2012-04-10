@@ -62,8 +62,8 @@
                </td>
                <td class="names">
                   <%= result.getName() %>
-                  <% if (true) { %>
-                     <form class="drop" action="dropplayer">
+                  <% if ((Boolean) request.getAttribute("droppable")) { %>
+                     <form class="drop" action="drop">
                         <input type="image" src="/images/delete.png" alt="Drop Player">
                      </form>
                   <% } %>
@@ -71,8 +71,8 @@
                <td class="opponents">
                   <div class="title">View Opponents</div>
                   <div class="list">
-                     <% for(int i = 1; i < result.getRoundPairings().size(); i++) { %>
-                        <%= i + ")" + result.getRoundPairings().get(i) %><br>
+                     <% for(int i = 1; i <= result.getRoundPairings().size(); i++) { %>
+                        <%= i + ") " + result.getRoundPairings().get(i) %><br>
                      <% } %>
                   </div>
                </td>
@@ -96,7 +96,7 @@
          </table>
       </div>
       <% if(request.getAttribute("title") != "Final Results") { %>
-         <input type="submit" value="Submit Round Results">
+         <input type="submit" value="Start Next Round">
       <% } %>
    </form>
 </div>

@@ -28,7 +28,7 @@ public class ShowController extends HttpServlet
       PlayerPool playerPool =  tournament.getPlayerPool();
       RoundPairings roundPairings =  new RoundPairings();
 
-      request.setAttribute("title", "Round" + tournament.getRound());
+      request.setAttribute("title", "Round " + tournament.getRound());
       request.setAttribute("message", "Please enter the wins of each player and opponent");
 
       if(tournament.isNextRound()){

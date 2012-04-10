@@ -51,6 +51,10 @@ public class PlayerPool
       return listOfPlayers;
    }
 
+   public boolean hasDroppable() {
+      return maxDroppable > 0;
+   }
+
    public int getNumPlayers() {
       return mapOfPlayers.size();
    }
@@ -60,7 +64,7 @@ public class PlayerPool
          mapOfPlayers.put(name, new PlayerInfo(name, seed.nextInt(100), playerNames));
 
       }
-      maxDroppable = getNumPlayers()-3;
+      maxDroppable = getNumPlayers()-Tournament.getTournament().getMaxRound();
    }
 
    public boolean dropPlayer(int round, String dropped, String getsBye) {
@@ -80,10 +84,6 @@ public class PlayerPool
       else {
          return false;
       }
-   }
-
-   public void dropAllPlayers() {
-      mapOfPlayers.clear();
    }
 
    /**
