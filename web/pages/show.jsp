@@ -36,6 +36,7 @@
             </tr>
             </thead>
             <%--TODO--%>
+            <% int maxWins = (Integer) request.getAttribute("maxWins"); %>
             <% for(PlayerInfo pair : (ArrayList<PlayerInfo>) request.getAttribute("listOfPairs")){ %>
             <tr>
                <td>
@@ -44,7 +45,7 @@
                </td>
                <td>
                   <% if(!pair.getName().equals("Bye") && !pair.getOpponent().equals("Bye")) { %>
-                     <input type="text" name="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, 3)">
+                     <input type="text" name="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
                   <% } else { %>
                      <input type="hidden" name="wins" value="-1">
                   <% } %>
@@ -58,7 +59,7 @@
                </td>
                <td>
                   <% if(!pair.getName().equals("Bye") && !pair.getOpponent().equals("Bye")) { %>
-                     <input type="text" name="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, 3)">
+                     <input type="text" name="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
                   <% } else { %>
                      <input type="hidden" name="losses" value="-1">
                   <% } %>
