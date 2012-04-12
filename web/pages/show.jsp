@@ -13,7 +13,9 @@
 <html>
 <body>
 <div class="main">
-   <form name="show" action="nextround">
+   <% int maxWins = (Integer) request.getAttribute("maxWins"); %>
+   <% int bestOf = (Integer) request.getAttribute("bestOf"); %>
+   <form name="show" action="nextround" onsubmit="return verifyValues(<%= bestOf %>, <%= maxWins %>)">
       <div class="show">
          <table>
             <thead>
@@ -36,7 +38,6 @@
             </tr>
             </thead>
             <%--TODO--%>
-            <% int maxWins = (Integer) request.getAttribute("maxWins"); %>
             <% for(PlayerInfo pair : (ArrayList<PlayerInfo>) request.getAttribute("listOfPairs")){ %>
             <tr>
                <td>

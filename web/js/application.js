@@ -52,3 +52,30 @@ function verifyValue(field, maxNum)
       field.style.boxShadow = "0 0 0.25em #b2d1ff";
    }
 }
+
+//TODO testing this to check that the sum of the two are valid, should highlight the incorrect rows
+//TODO should send an error?
+function verifyValues(bestOf, maxWins) {
+   var isValid = true;
+   var wins = document.show.wins;
+   var losses = document.show.losses;
+
+   for(var i = 0; i < wins.size; i++){
+      if((wins[i] != -1) && (losses[i] != -1)){
+         var row = document.table.tr[i];
+         var sum = wins[i] + losses[i];
+         if((sum > bestOf) || (sum < maxWins)) {
+            row.style.borderColor = "#ff8888";
+            row.style.mozBoxShadow = "0 0 0.25em #ff8888";
+            row.style.boxShadow = "0 0 0.25em #ff8888";
+            isValid = false;
+         }
+         else {
+            row.style.borderColor = "#b2d1ff";
+            row.style.mozBoxShadow = "0 0 0.25em #b2d1ff";
+            row.style.boxShadow = "0 0 0.25em #b2d1ff";
+         }
+      }
+   }
+   return isValid;
+}
