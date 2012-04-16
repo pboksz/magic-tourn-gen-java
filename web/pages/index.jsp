@@ -60,6 +60,10 @@
          </table>
       </div>
       <input type="submit" value="Create Tournament">
+
+   </form>
+   <form action="save">
+      <input type="submit" value="Save Players">
    </form>
 </div>
 </body>
