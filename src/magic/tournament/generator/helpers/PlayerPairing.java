@@ -1,4 +1,4 @@
-package helpers;
+package magic.tournament.generator.helpers;
 
 /**
  * private object that holds the round, player name, and corresponding opponent name

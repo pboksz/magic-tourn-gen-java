@@ -1,4 +1,4 @@
-package helpers;
+package magic.tournament.generator.helpers;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,7 +64,7 @@ public class PlayerPool
          mapOfPlayers.put(name, new PlayerInfo(name, seed.nextInt(100), playerNames));
 
       }
-      maxDroppable = getNumPlayers()-Tournament.getTournament().getMaxRound();
+      maxDroppable = getNumPlayers()- Tournament.getTournament().getMaxRound();
    }
 
    public boolean dropPlayer(int round, String dropped, String getsBye) {

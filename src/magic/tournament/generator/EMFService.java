@@ -1,4 +1,4 @@
-package magic.draft.generator;
+package magic.tournament.generator;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
