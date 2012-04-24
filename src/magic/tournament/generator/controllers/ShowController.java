@@ -1,9 +1,9 @@
-package controllers;
+package magic.tournament.generator.controllers;
 
-import helpers.PlayerInfo;
-import helpers.PlayerPool;
-import helpers.RoundPairings;
-import helpers.Tournament;
+import magic.tournament.generator.helpers.PlayerInfo;
+import magic.tournament.generator.helpers.PlayerPool;
+import magic.tournament.generator.helpers.RoundPairings;
+import magic.tournament.generator.helpers.Tournament;
 
 import java.io.IOException;
 import java.util.ArrayList;

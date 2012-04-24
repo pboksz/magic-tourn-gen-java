@@ -1,7 +1,7 @@
-package controllers;
+package magic.tournament.generator.controllers;
 
-import helpers.PlayerPool;
-import helpers.Tournament;
+import magic.tournament.generator.helpers.PlayerPool;
+import magic.tournament.generator.helpers.Tournament;
 
 import java.io.IOException;
 import java.util.ArrayList;

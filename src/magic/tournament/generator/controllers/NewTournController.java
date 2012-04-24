@@ -1,4 +1,4 @@
-package controllers;
+package magic.tournament.generator.controllers;
 
 import java.io.IOException;
 

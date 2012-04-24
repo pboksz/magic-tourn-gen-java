@@ -33,7 +33,6 @@ public class PlayerInfo
    private int roundLosses;
    private int individualWins;
    private int individualLosses;
-
    private String opponent;
    private ArrayList<String> possibleOpponents = new ArrayList<String>();
    private SortedMap<Integer, String> roundPairings = new TreeMap<Integer, String>();
