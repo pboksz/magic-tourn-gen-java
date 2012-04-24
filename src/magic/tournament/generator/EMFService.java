@@ -1,4 +1,4 @@
-package models;
+package magic.draft.generator;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

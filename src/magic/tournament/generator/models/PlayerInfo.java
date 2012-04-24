@@ -1,7 +1,10 @@
-package models;
+package magic.draft.generator.models;
+
+import magic.draft.generator.EMFService;
 
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,17 +16,18 @@ import javax.persistence.Id;
  * Date: 4/16/12
  * Time: 10:20 AM
  */
+@Entity
 public class PlayerInfo
 {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int id;
+   private Long id;
    private String name;
    private int seed;
    private int rank;
    private int roundWins;
-   private int roundLosses;
    private int roundByes;
+   private int roundLosses;
    private int individualWins;
    private int individualLosses;
 
@@ -39,7 +43,9 @@ public class PlayerInfo
       individualLosses = 0;
    }
 
-   public int getId()
+   public PlayerInfo() {}
+
+   public long getId()
    {
       return id;
    }
@@ -64,14 +70,14 @@ public class PlayerInfo
       return roundWins;
    }
 
-   public int getRoundLosses()
-   {
-      return roundLosses;
-   }
-
    public int getRoundByes()
    {
       return roundByes;
+   }
+
+   public int getRoundLosses()
+   {
+      return roundLosses;
    }
 
    public int getIndividualWins()
@@ -86,21 +92,20 @@ public class PlayerInfo
 
    public static void savePlayers()
    {
-      EntityManager em = EMFService.get().createEntityManager();
-
-      try
+      int seed = 1;
+      for (int i = 1; i <= 8; i++)
       {
-         int seed = 1;
-         for (int i = 1; i <= 8; i++)
+         EntityManager em = EMFService.get().createEntityManager();
+         try
          {
             seed *= 2;
             PlayerInfo player = new PlayerInfo("player" + i, seed);
             em.persist(player);
          }
-      }
-      finally
-      {
-         em.close();
+         finally
+         {
+            em.close();
+         }
       }
    }
 
@@ -108,10 +113,13 @@ public class PlayerInfo
    {
       EntityManager em = EMFService.get().createEntityManager();
       List allPlayers = null;
-      try {
+      try
+      {
          allPlayers = em.createQuery("select from " + PlayerInfo.class.getName()).getResultList();
+         allPlayers.size();
       }
-      finally {
+      finally
+      {
          em.close();
       }
       return allPlayers;
