@@ -60,20 +60,25 @@ function verifyValues(bestOf, maxWins) {
    var wins = document.show.wins;
    var losses = document.show.losses;
 
-   for(var i = 0; i < wins.size; i++){
-      if((wins[i] != -1) && (losses[i] != -1)){
-         var row = document.table.tr[i];
-         var sum = wins[i] + losses[i];
+   for(var i = 0; i < wins.length; i++){
+      var win = parseInt(wins[i].value);
+      var loss = parseInt(losses[i].value);
+      if((win != -1) && (loss != -1)){
+         var table = document.getElementById("showtable");
+         var row = table.tBodies[0].rows[i];
+         var sum = win + loss;
          if((sum > bestOf) || (sum < maxWins)) {
+            row.style.borderBottomWidth = "2px";
+            row.style.borderLeftWidth = "2px";
+            row.style.borderRightWidth = "2px";
             row.style.borderColor = "#ff8888";
-            row.style.mozBoxShadow = "0 0 0.25em #ff8888";
-            row.style.boxShadow = "0 0 0.25em #ff8888";
             isValid = false;
          }
          else {
+            row.style.borderBottomWidth = "2px";
+            row.style.borderLeftWidth = "2px";
+            row.style.borderRightWidth = "2px";
             row.style.borderColor = "#b2d1ff";
-            row.style.mozBoxShadow = "0 0 0.25em #b2d1ff";
-            row.style.boxShadow = "0 0 0.25em #b2d1ff";
          }
       }
    }

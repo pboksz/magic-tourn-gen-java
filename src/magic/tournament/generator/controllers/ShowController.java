@@ -45,7 +45,7 @@ public class ShowController extends HttpServlet
          clonedMapOfPlayers.remove(player.getOpponent());
       }
       request.setAttribute("listOfPairs", listOfPairs);
-      request.setAttribute("maxWins", Math.ceil(tournament.getBestOf() / 2));
+      request.setAttribute("maxWins", tournament.getMaxWins());
       request.setAttribute("bestOf", tournament.getBestOf());
       
       getServletContext().getRequestDispatcher("/pages/show.jsp").forward(request, response);

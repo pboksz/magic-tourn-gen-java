@@ -1,5 +1,4 @@
-<%@ page import="helpers.PlayerInfo" %>
-<%@ page import="helpers.PlayerPool" %>
+<%@ page import="magic.tournament.generator.helpers.PlayerInfo" %>
 <%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
@@ -17,7 +16,7 @@
    <% int bestOf = (Integer) request.getAttribute("bestOf"); %>
    <form name="show" action="nextround" onsubmit="return verifyValues(<%= bestOf %>, <%= maxWins %>)">
       <div class="show">
-         <table>
+         <table id="showtable">
             <thead>
             <tr>
                <th>

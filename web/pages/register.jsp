@@ -1,5 +1,4 @@
-<%@ page import="helpers.PlayerInfo" %>
-<%@ page import="helpers.PlayerPool" %>
+<%@ page import="magic.tournament.generator.helpers.PlayerInfo" %>
 <%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.

@@ -82,7 +82,7 @@ public class NextRoundController extends HttpServlet
             clonedMapOfPlayers.remove(player.getOpponent());
          }
          request.setAttribute("listOfPairs", listOfPairs);
-         request.setAttribute("maxWins", Math.ceil(tournament.getBestOf() / 2));
+         request.setAttribute("maxWins", tournament.getMaxWins());
          request.setAttribute("bestOf", tournament.getBestOf());
 
          getServletContext().getRequestDispatcher("/pages/show.jsp").forward(request, response);
@@ -94,11 +94,11 @@ public class NextRoundController extends HttpServlet
       boolean hasErrors = false;
       for (int i = 0; i < playerWins.length; i++)
       {
-         if((!playerWins[i].equals("-1")) && (!playerLosses[i].equals("-1"))){
-            if (playerWins[i].matches("[0-maxWins]") && (playerLosses[i].matches("[0-maxWins]")))
+         int wins = Integer.valueOf(playerWins[i]);
+         int losses = Integer.valueOf(playerLosses[i]);
+         if((wins != -1) && (losses != -1)){
+            if ((wins >= 0) && (wins <= maxWins) && (losses >= 0) && (losses <= maxWins))
             {
-               int wins = Integer.valueOf(playerWins[i]);
-               int losses = Integer.valueOf(playerLosses[i]);
                if ((wins + losses > bestOf))
                {
                   hasErrors = true;
