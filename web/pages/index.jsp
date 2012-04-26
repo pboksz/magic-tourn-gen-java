@@ -32,7 +32,7 @@
             <tr>
                <td>
                   <select name="howManyPlayers" onchange="addRounds(this.value)">
-                     <% for(int i = 4; i <= 16; i++ ) {%>
+                     <% for(int i = 4; i <= 64; i++ ) {%>
                         <option><%= i%></option>
                      <% } %>
                   </select>

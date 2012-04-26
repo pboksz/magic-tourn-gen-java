@@ -19,6 +19,26 @@ function addRounds(numPlayers)
       clearRounds();
       addOptions(2);
    }
+   if ((numPlayers > 32) && (numPlayers <= 64))
+   {
+      clearRounds();
+      addOptions(3);
+   }
+   if ((numPlayers > 64) && (numPlayers <= 128))
+   {
+      clearRounds();
+      addOptions(4);
+   }
+   if ((numPlayers > 128) && (numPlayers <= 256))
+   {
+      clearRounds();
+      addOptions(5);
+   }
+   if ((numPlayers > 256) && (numPlayers <= 512))
+   {
+      clearRounds();
+      addOptions(6);
+   }
 }
 
 function clearRounds()
@@ -68,17 +88,17 @@ function verifyValues(bestOf, maxWins) {
          var row = table.tBodies[0].rows[i];
          var sum = win + loss;
          if((sum > bestOf) || (sum < maxWins)) {
-            row.style.borderBottomWidth = "2px";
-            row.style.borderLeftWidth = "2px";
-            row.style.borderRightWidth = "2px";
-            row.style.borderColor = "#ff8888";
-            isValid = false;
+//            row.style.borderBottomWidth = "2px";
+//            row.style.borderLeftWidth = "2px";
+//            row.style.borderRightWidth = "2px";
+//            row.style.borderColor = "#ff8888";
+//            isValid = false;
          }
          else {
-            row.style.borderBottomWidth = "2px";
-            row.style.borderLeftWidth = "2px";
-            row.style.borderRightWidth = "2px";
-            row.style.borderColor = "#b2d1ff";
+//            row.style.borderBottomWidth = "2px";
+//            row.style.borderLeftWidth = "2px";
+//            row.style.borderRightWidth = "2px";
+//            row.style.borderColor = "#b2d1ff";
          }
       }
    }
