@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * a comparator for sorting by rank
  */
-class RankComparator implements Comparator
+public class RankComparator implements Comparator
 {
    public int compare(Object o1, Object o2)
    {

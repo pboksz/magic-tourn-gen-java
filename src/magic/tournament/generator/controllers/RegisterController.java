@@ -1,6 +1,5 @@
 package magic.tournament.generator.controllers;
 
-import magic.tournament.generator.helpers.PlayerPool;
 import magic.tournament.generator.helpers.Tournament;
 
 import java.io.IOException;
@@ -23,12 +22,11 @@ public class RegisterController extends HttpServlet
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
       Tournament tournament = Tournament.getTournament();
-      PlayerPool playerPool = tournament.getPlayerPool();
 
       request.setAttribute("title", "Registered Players");
       request.setAttribute("message", "Players will be paired by the order in which they are seeded");
 
-      if(playerPool.getListOfPlayers().isEmpty()){
+      if(tournament.getListOfPlayers().isEmpty()){
          ArrayList<String> playerNames = new ArrayList<String>();
          Map params = request.getParameterMap();
          for (Object key : params.keySet())
@@ -37,9 +35,9 @@ public class RegisterController extends HttpServlet
             playerNames.add(validateName(value, (String) key));
          }
          
-         playerPool.registerPlayers(playerNames);
+         tournament.registerPlayers(playerNames);
       }
-      request.setAttribute("seedSorted", playerPool.getSeedSortedListOfPlayers());
+      request.setAttribute("seedSorted", tournament.getSeedSortedListOfPlayers());
 
       getServletContext().getRequestDispatcher("/pages/register.jsp").forward(request, response);
    }

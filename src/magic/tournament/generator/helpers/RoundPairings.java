@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class RoundPairings
 {
    Tournament tournament = Tournament.getTournament();
-   PlayerPool playerPool = tournament.getPlayerPool();
    ArrayList<PlayerPairing> queue;
 
    /**
@@ -27,17 +26,17 @@ public class RoundPairings
       //if first round get other sorting
       if (tournament.getRound() == 1)
       {
-         sorted = playerPool.getSeedSortedListOfPlayers();
+         sorted = tournament.getSeedSortedListOfPlayers();
       }
       else
       {
-         sorted = playerPool.getRankSortedListOfPlayers();
+         sorted = tournament.getRankSortedListOfPlayers();
       }
       //try doing all the pairings
       trySettingRoundPairings(sorted);
       //after all that activate the pairings in the final queue
       for(PlayerPairing pair : queue){
-         playerPool.setRoundPairing(tournament.getRound(), pair.getPlayerName(), pair.getOpponentName());
+         tournament.setRoundPairing(tournament.getRound(), pair.getPlayerName(), pair.getOpponentName());
       }
    }
 
@@ -88,7 +87,7 @@ public class RoundPairings
       {
          queue.clear();
          isFirstPlayer = true;
-         sorted = playerPool.getRankSortedListOfPlayers();
+         sorted = tournament.getRankSortedListOfPlayers();
          tryPairingAllPlayers(sorted, isFirstPlayer, ++firstIndex);
       }
    }
@@ -102,7 +101,7 @@ public class RoundPairings
    private void trySettingLowestBye(ArrayList<PlayerInfo> sorted, int last)
    {
       boolean byeIsNotSet = true;
-      if (playerPool.getNumPlayers() == 3)
+      if (tournament.getNumPlayers() == 3)
       {
          byeIsNotSet = handle3PlayerByes(sorted, last);
       }

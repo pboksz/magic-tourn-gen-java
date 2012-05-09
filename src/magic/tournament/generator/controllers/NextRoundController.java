@@ -1,7 +1,6 @@
 package magic.tournament.generator.controllers;
 
 import magic.tournament.generator.helpers.PlayerInfo;
-import magic.tournament.generator.helpers.PlayerPool;
 import magic.tournament.generator.helpers.RoundPairings;
 import magic.tournament.generator.helpers.Tournament;
 
@@ -25,7 +24,6 @@ public class NextRoundController extends HttpServlet
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
       Tournament tournament = Tournament.getTournament();
-      PlayerPool playerPool = tournament.getPlayerPool();
       RoundPairings roundPairings = new RoundPairings();
 
       String[] players = request.getParameterValues("player");
@@ -45,8 +43,8 @@ public class NextRoundController extends HttpServlet
             int playerWon = Integer.valueOf(playerWins[i]);
             int playerLost = Integer.valueOf(playerLosses[i]);
 
-            playerPool.setPlayerOutcome(playerName, opponentName, round, playerWon, playerLost);
-            playerPool.setPlayerOutcome(opponentName, playerName, round, playerLost, playerWon);
+            tournament.setPlayerOutcome(playerName, opponentName, round, playerWon, playerLost);
+            tournament.setPlayerOutcome(opponentName, playerName, round, playerLost, playerWon);
          }
          tournament.nextRound();
 
@@ -55,7 +53,7 @@ public class NextRoundController extends HttpServlet
             title = "Final Results";
          }
          request.setAttribute("title", title);
-         request.setAttribute("droppable", (tournament.getPlayerPool().hasDroppable() && (tournament.getRound() <= tournament.getMaxRound())));
+         request.setAttribute("droppable", (tournament.hasDroppable() && (tournament.getRound() <= tournament.getMaxRound())));
          request.setAttribute("results", tournament.getCurrentRankings());
 
          getServletContext().getRequestDispatcher("/pages/results.jsp").forward(request, response);
@@ -73,7 +71,7 @@ public class NextRoundController extends HttpServlet
          }
 
          ArrayList<PlayerInfo> listOfPairs = new ArrayList<PlayerInfo>();
-         SortedMap<String, PlayerInfo> clonedMapOfPlayers = playerPool.cloneMapOfPlayers();
+         SortedMap<String, PlayerInfo> clonedMapOfPlayers = tournament.cloneMapOfPlayers();
          while (clonedMapOfPlayers.size() != 0)
          {
             PlayerInfo player = clonedMapOfPlayers.get(clonedMapOfPlayers.firstKey());

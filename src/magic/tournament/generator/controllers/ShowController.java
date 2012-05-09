@@ -1,7 +1,6 @@
 package magic.tournament.generator.controllers;
 
 import magic.tournament.generator.helpers.PlayerInfo;
-import magic.tournament.generator.helpers.PlayerPool;
 import magic.tournament.generator.helpers.RoundPairings;
 import magic.tournament.generator.helpers.Tournament;
 
@@ -25,7 +24,6 @@ public class ShowController extends HttpServlet
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
       Tournament tournament = Tournament.getTournament();
-      PlayerPool playerPool =  tournament.getPlayerPool();
       RoundPairings roundPairings =  new RoundPairings();
 
       request.setAttribute("title", "Round " + tournament.getRound());
@@ -37,7 +35,7 @@ public class ShowController extends HttpServlet
       }
 
       ArrayList<PlayerInfo> listOfPairs = new ArrayList<PlayerInfo>();
-      SortedMap<String, PlayerInfo> clonedMapOfPlayers = playerPool.cloneMapOfPlayers();
+      SortedMap<String, PlayerInfo> clonedMapOfPlayers = tournament.cloneMapOfPlayers();
       while(clonedMapOfPlayers.size() != 0) {
          PlayerInfo player = clonedMapOfPlayers.get(clonedMapOfPlayers.firstKey());
          listOfPairs.add(player);

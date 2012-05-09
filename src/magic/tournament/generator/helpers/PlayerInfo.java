@@ -132,7 +132,7 @@ public class PlayerInfo
    public void removePossibleOpponent(String opponent)
    {
       //if the removed opponent is on the list of possible opponents, remove it
-      int index=possibleOpponents.indexOf(opponent);
+      int index = possibleOpponents.indexOf(opponent);
       if (index != -1)
       {
          possibleOpponents.remove(index);
@@ -148,6 +148,16 @@ public class PlayerInfo
          }
       }
       return canPlay;
+   }
+
+   public boolean canUseBye()
+   {
+      return possibleOpponents.contains("Bye");
+   }
+
+   public boolean canOnlyGetBye()
+   {
+      return (canUseBye() && (possibleOpponents.size() == 1));
    }
 
    public void addRoundPairing(int round, String opponent)
@@ -168,15 +178,5 @@ public class PlayerInfo
    public void setRank(int rank)
    {
       this.rank = rank;
-   }
-
-   public boolean canUseBye()
-   {
-      return possibleOpponents.contains("Bye");
-   }
-
-   public boolean canOnlyGetBye()
-   {
-      return (canUseBye() && (possibleOpponents.size() == 1));
    }
 }
