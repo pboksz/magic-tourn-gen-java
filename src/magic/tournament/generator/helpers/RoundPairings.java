@@ -36,7 +36,7 @@ public class RoundPairings
       trySettingRoundPairings(sorted);
       //after all that activate the pairings in the final queue
       for(PlayerPairing pair : queue){
-         tournament.setRoundPairing(tournament.getRound(), pair.getPlayerName(), pair.getOpponentName());
+         tournament.setRoundPairing(pair.getPlayerName(), pair.getOpponentName());
       }
    }
 

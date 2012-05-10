@@ -146,7 +146,7 @@ public class Tournament
       return (maxDroppable > 0);
    }
 
-   public boolean dropPlayer(int round, String dropped) {
+   public boolean dropPlayer(String dropped) {
       if((round > 1) && (maxDroppable > 0)) {
          mapOfPlayers.remove(dropped);
          maxDroppable--;
@@ -169,11 +169,10 @@ public class Tournament
     * sets the outcome of the round for each player
     * @param playerName the player's playerName
     * @param opponentName the opponentName's playerName
-    * @param round the round number
     * @param wins the player's wins
     * @param losses the player's losses
     */
-   public void setPlayerOutcome(String playerName, String opponentName, int round, int wins, int losses) {
+   public void setPlayerOutcome(String playerName, String opponentName, int wins, int losses) {
       PlayerInfo player = mapOfPlayers.get(playerName);
       if (player != null) {
          if (!opponentName.equals("Bye")) {
@@ -196,11 +195,10 @@ public class Tournament
 
    /**
     * Sets both players info object to record the round and opponentName for the round
-    * @param round number
     * @param playerName name of player
     * @param opponentName name of opponent
     */
-   public void setRoundPairing(int round, String playerName, String opponentName) {
+   public void setRoundPairing(String playerName, String opponentName) {
       if (!playerName.equals("Bye")) {
          PlayerInfo player = mapOfPlayers.get(playerName);
          player.addRoundPairing(round, opponentName);

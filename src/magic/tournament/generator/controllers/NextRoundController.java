@@ -30,7 +30,6 @@ public class NextRoundController extends HttpServlet
       String[] opponents = request.getParameterValues("opponent");
       String[] playerWins = request.getParameterValues("wins");
       String[] playerLosses = request.getParameterValues("losses");
-      int round = tournament.getRound();
       int maxWins = tournament.getMaxWins();
       int bestOf = tournament.getBestOf();
 
@@ -43,8 +42,8 @@ public class NextRoundController extends HttpServlet
             int playerWon = Integer.valueOf(playerWins[i]);
             int playerLost = Integer.valueOf(playerLosses[i]);
 
-            tournament.setPlayerOutcome(playerName, opponentName, round, playerWon, playerLost);
-            tournament.setPlayerOutcome(opponentName, playerName, round, playerLost, playerWon);
+            tournament.setPlayerOutcome(playerName, opponentName, playerWon, playerLost);
+            tournament.setPlayerOutcome(opponentName, playerName, playerLost, playerWon);
          }
          tournament.nextRound();
 
