@@ -32,10 +32,10 @@ public class TournamentTests
    }
 
    private void setFirstRound() {
-      tournament.setPlayerOutcome("player1", "player2", 1, 2, 0);
-      tournament.setPlayerOutcome("player2", "player1", 1, 0, 2);
-      tournament.setPlayerOutcome("player3", "player4", 1, 2, 1);
-      tournament.setPlayerOutcome("player4", "player3", 1, 1, 2);
+      tournament.setPlayerOutcome("player1", "player2", 2, 0);
+      tournament.setPlayerOutcome("player2", "player1", 0, 2);
+      tournament.setPlayerOutcome("player3", "player4", 2, 1);
+      tournament.setPlayerOutcome("player4", "player3", 1, 2);
       tournament.incPrevRound();
       tournament.nextRound();
    }
@@ -122,7 +122,7 @@ public class TournamentTests
 
       setFirstRound();
 
-      assertTrue(tournament.dropPlayer(tournament.getRound(), "player4"));
+      assertTrue(tournament.dropPlayer("player4"));
       assertFalse(tournament.hasDroppable());
       assertEquals(3, tournament.getNumPlayers());
       assertFalse(tournament.getMapOfPlayers().containsKey("player4"));
@@ -130,7 +130,7 @@ public class TournamentTests
 
    @Test
    public void testSetPlayerOutcome() {
-      tournament.setPlayerOutcome("player1", "player2", 1, 2, 0);
+      tournament.setPlayerOutcome("player1", "player2", 2, 0);
       PlayerInfo player1 = tournament.getMapOfPlayers().get("player1");
 
       assertEquals(1, player1.getRoundWins());
@@ -142,7 +142,7 @@ public class TournamentTests
 
    @Test
    public void testSetPlayerOutcomeAgainstBye() {
-      tournament.setPlayerOutcome("player1", "Bye", 1, -1, -1);
+      tournament.setPlayerOutcome("player1", "Bye", -1, -1);
       PlayerInfo player1 = tournament.getMapOfPlayers().get("player1");
 
       assertEquals(1, player1.getRoundByes());
@@ -150,7 +150,7 @@ public class TournamentTests
 
    @Test
    public void testSetRoundPairing() {
-      tournament.setRoundPairing(1, "player1", "player2");
+      tournament.setRoundPairing("player1", "player2");
       PlayerInfo player1 = tournament.getMapOfPlayers().get("player1");
       PlayerInfo player2 = tournament.getMapOfPlayers().get("player2");
 
@@ -163,7 +163,7 @@ public class TournamentTests
    
    @Test
    public void testSetRoundPairingAgainstBye() {
-      tournament.setRoundPairing(1, "player1", "Bye");
+      tournament.setRoundPairing("player1", "Bye");
       PlayerInfo player1 = tournament.getMapOfPlayers().get("player1");
 
       assertFalse(player1.getPossibleOpponents().contains("Bye"));
