@@ -39,7 +39,7 @@ public class RegisterController extends HttpServlet
       }
       request.setAttribute("seedSorted", tournament.getSeedSortedListOfPlayers());
 
-      getServletContext().getRequestDispatcher("/pages/register.jsp").forward(request, response);
+      request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
    }
    
    public String validateName(String value, String key) {

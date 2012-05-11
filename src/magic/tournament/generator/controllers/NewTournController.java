@@ -21,6 +21,6 @@ public class NewTournController extends HttpServlet
       request.setAttribute("message", "Please select the tournament settings");
       request.setAttribute("error", "The tournament has been reset");
 
-      getServletContext().getRequestDispatcher("/pages/index.jsp").forward(request, response);
+      request.getRequestDispatcher("/pages/index.jsp").forward(request, response);
    }
 }

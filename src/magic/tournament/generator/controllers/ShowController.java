@@ -46,6 +46,6 @@ public class ShowController extends HttpServlet
       request.setAttribute("maxWins", tournament.getMaxWins());
       request.setAttribute("bestOf", tournament.getBestOf());
       
-      getServletContext().getRequestDispatcher("/pages/show.jsp").forward(request, response);
+      request.getRequestDispatcher("/pages/show.jsp").forward(request, response);
    }
 }

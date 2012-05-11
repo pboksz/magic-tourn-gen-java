@@ -20,6 +20,6 @@ public class IndexController extends HttpServlet
       request.setAttribute("title", "Tournament Settings");
       request.setAttribute("message", "Please select the tournament settings");
 
-      getServletContext().getRequestDispatcher("/pages/index.jsp").forward(request, response);
+      request.getRequestDispatcher("/pages/index.jsp").forward(request, response);
    }
 }

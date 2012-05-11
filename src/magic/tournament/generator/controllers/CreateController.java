@@ -30,6 +30,6 @@ public class CreateController extends HttpServlet
       Tournament.newTournament(numPlayers, maxRounds, bestOf, format);
       request.setAttribute("howManyPlayers", numPlayers);
 
-      getServletContext().getRequestDispatcher("/pages/addplayers.jsp").forward(request, response);
+      request.getRequestDispatcher("/pages/addplayers.jsp").forward(request, response);
    }
 }
