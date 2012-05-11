@@ -1,8 +1,5 @@
-package magic.tournament.generator;
+package magic.tournament.generator.helpers;
 
-import magic.tournament.generator.helpers.PlayerInfo;
-import magic.tournament.generator.helpers.RoundPairings;
-import magic.tournament.generator.helpers.Tournament;
 import org.junit.Before;
 import org.junit.Test;
 

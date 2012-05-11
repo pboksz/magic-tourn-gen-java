@@ -1,4 +1,4 @@
-package magic.tournament.generator;
+package magic.tournament.generator.helpers;
 
 import magic.tournament.generator.helpers.PlayerInfo;
 import magic.tournament.generator.helpers.SeedComparator;
