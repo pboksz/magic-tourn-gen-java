@@ -24,7 +24,7 @@
             </tr>
             </thead>
             <% int numPlayers = (Integer) request.getAttribute("howManyPlayers"); %>
-            <% for(int i = 1; i < (numPlayers+1); i++){ %>
+            <% for(int i = 1; i < (numPlayers + 1); i++){ %>
             <tr>
                <td>
                   Player <%= i %>
