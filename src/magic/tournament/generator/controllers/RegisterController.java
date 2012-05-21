@@ -45,7 +45,7 @@ public class RegisterController extends HttpServlet
    public String validateName(String value, String key) {
       String name = key;
       //if its alphanumeric the name is the value not the key
-      if(value.matches("[a-zA-Z0-9]")) {
+      if(value.matches("[a-zA-Z0-9]+")) {
          name = value;
          //if its super long just truncate it to 47 characters plus a "..."
          if(name.length() > 47) {
