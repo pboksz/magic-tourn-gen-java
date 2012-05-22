@@ -37,7 +37,7 @@ public class PlayerInfo
    private ArrayList<String> possibleOpponents = new ArrayList<String>();
    private SortedMap<Integer, String> roundPairings = new TreeMap<Integer, String>();
 
-   public PlayerInfo(String name, int seed)
+   public PlayerInfo(String name, int seed, ArrayList<String> playerNames)
    {
       this.name = name;
       this.seed = seed;
@@ -47,6 +47,7 @@ public class PlayerInfo
       roundByes = 0;
       individualWins = 0;
       individualLosses = 0;
+      addPossibleOpponents(playerNames);
    }
 
    public PlayerInfo() {}
