@@ -12,7 +12,11 @@
 <html>
 <body>
 <div class="main">
-   <form name="results" action="show">
+   <% if(request.getAttribute("title") != "Final Results") { %>
+      <form name="results" action="show">
+   <% } else { %>
+      <form name="results" action="new">
+   <% } %>
       <div class="results">
          <table>
             <thead>
@@ -98,6 +102,8 @@
       </div>
       <% if(request.getAttribute("title") != "Final Results") { %>
          <input type="submit" value="Start Next Round">
+      <% } else { %>
+         <input type="submit" value="New Tournament">
       <% } %>
    </form>
 </div>

@@ -19,10 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  * Date: 4/5/12
  * Time: 1:29 PM
  */
-public class NextRoundController extends HttpServlet
-{
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-   {
+public class NextRoundController extends HttpServlet {
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       Tournament tournament = Tournament.getTournament();
       RoundPairings roundPairings = new RoundPairings();
 
@@ -33,7 +31,7 @@ public class NextRoundController extends HttpServlet
       int maxWins = tournament.getMaxWins();
       int bestOf = tournament.getBestOf();
 
-      if(hasValidValues(playerWins, playerLosses, maxWins, bestOf)){
+      if (hasValidValues(playerWins, playerLosses, maxWins, bestOf)) {
          for (int i = 0; i < playerWins.length; i++) {
             String playerName = players[i];
             String opponentName = opponents[i];
@@ -46,7 +44,7 @@ public class NextRoundController extends HttpServlet
          tournament.nextRound();
 
          String title = "Round " + tournament.getPrevRound() + " Standings";
-         if(tournament.getRound() > tournament.getMaxRound()) {
+         if (tournament.getRound() > tournament.getMaxRound()) {
             title = "Final Results";
          }
          request.setAttribute("title", title);
@@ -54,23 +52,19 @@ public class NextRoundController extends HttpServlet
          request.setAttribute("results", tournament.getCurrentRankings());
 
          getServletContext().getRequestDispatcher("/pages/results.jsp").forward(request, response);
-      }
-      else
-      {
+      } else {
          request.setAttribute("title", "Round " + tournament.getRound());
          request.setAttribute("message", "Please enter the wins of each player and opponent.");
-         request.setAttribute("error", "The values for wins for each player has to be a number, cannot be blank, cannot be less than 0 and should sum to " + tournament.getBestOf() + " or less.");
+         request.setAttribute("error", "The values for wins for each player has to be a number, cannot be blank, and should sum to between " + tournament.getMaxWins() + " and " + tournament.getBestOf() + ".");
 
-         if (tournament.isNextRound())
-         {
+         if (tournament.isNextRound()) {
             roundPairings.setRoundPairings();
             tournament.incPrevRound();
          }
 
          ArrayList<PlayerInfo> listOfPairs = new ArrayList<PlayerInfo>();
          SortedMap<String, PlayerInfo> clonedMapOfPlayers = tournament.cloneMapOfPlayers();
-         while (clonedMapOfPlayers.size() != 0)
-         {
+         while (clonedMapOfPlayers.size() != 0) {
             PlayerInfo player = clonedMapOfPlayers.get(clonedMapOfPlayers.firstKey());
             listOfPairs.add(player);
             clonedMapOfPlayers.remove(player.getName());
@@ -84,12 +78,11 @@ public class NextRoundController extends HttpServlet
       }
    }
 
-   private boolean hasValidValues(String[] playerWins, String[] playerLosses, int maxWins, int bestOf)
-   {
-      for (int i = 0; i < playerWins.length; i++)
-      {
+   private boolean hasValidValues(String[] playerWins, String[] playerLosses, int maxWins, int bestOf) {
+      for (int i = 0; i < playerWins.length; i++) {
          //if something is blank, return error
-         if((playerWins[i].equals("")) || (playerLosses[i].equals(""))){
+         //CASE: nothing is filled in for values
+         if ((playerWins[i].equals("")) || (playerLosses[i].equals(""))) {
             return false;
          }
 
@@ -97,19 +90,25 @@ public class NextRoundController extends HttpServlet
          int wins = Integer.valueOf(playerWins[i]);
          int losses = Integer.valueOf(playerLosses[i]);
 
-         //if values are less than zero, return error
-         if((wins < 0) || (losses < 0)) {
-            return false;
-         }
+         //skip over bye round data
+         if ((wins != -1) && (losses != -1)) {
+            //if values are greater than maxWins, return error
+            //CASE: wins is 4 and maxWins is 2 in a bestOf 3 tournament
+            if ((wins > maxWins) || (losses > maxWins)) {
+               return false;
+            }
 
-         //if values are greater than maxWins, return error
-         if((wins > maxWins) || (losses > maxWins)) {
-            return false;
-         }
+            //if the sum of the wins and losses is greater than bestOf, return error
+            //CASE: wins and losses are both 2 which cannot be the case in a bestOf 3 tournament
+            if ((wins + losses) > bestOf) {
+               return false;
+            }
 
-         //if the sum of the wins and losses is greater than bestOf, return error
-         if((wins + losses) > bestOf){
-            return false;
+            //assert that one of the values is equal to maxWins, else return error
+            //CASE: wins and losses are both 1 which would get through all the other tests and pass, but it is not right
+            if (!((wins == maxWins) || (losses == maxWins))) {
+               return false;
+            }
          }
       }
       return true;

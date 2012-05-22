@@ -30,7 +30,7 @@
                   Player <%= i %>
                </td>
                <td>
-                  <input type="text" name="player <%= i %>">
+                  <input type="text" name="Player <%= i %>">
                </td>
             </tr>
             <% } %>
