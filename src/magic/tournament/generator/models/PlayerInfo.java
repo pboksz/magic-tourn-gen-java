@@ -20,8 +20,7 @@ import javax.persistence.Id;
  * Time: 10:20 AM
  */
 @Entity
-public class PlayerInfo
-{
+public class PlayerInfo {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
@@ -37,8 +36,7 @@ public class PlayerInfo
    private ArrayList<String> possibleOpponents = new ArrayList<String>();
    private SortedMap<Integer, String> roundPairings = new TreeMap<Integer, String>();
 
-   public PlayerInfo(String name, int seed, ArrayList<String> playerNames)
-   {
+   public PlayerInfo(String name, int seed, ArrayList<String> playerNames) {
       this.name = name;
       this.seed = seed;
       rank = 0;
@@ -52,120 +50,98 @@ public class PlayerInfo
 
    public PlayerInfo() {}
 
-   public long getId()
-   {
+   public long getId() {
       return id;
    }
 
-   public String getName()
-   {
+   public String getName() {
       return name;
    }
 
-   public int getSeed()
-   {
+   public int getSeed() {
       return seed;
    }
 
-   public int getRank()
-   {
+   public int getRank() {
       return rank;
    }
 
-   public void setRank(int rank)
-   {
+   public void setRank(int rank) {
       this.rank = rank;
    }
 
-   public int getRoundWins()
-   {
+   public int getRoundWins() {
       return roundWins;
    }
 
-   public int getRoundByes()
-   {
+   public int getRoundByes() {
       return roundByes;
    }
 
-   public int getRoundLosses()
-   {
+   public int getRoundLosses() {
       return roundLosses;
    }
 
-   public int getIndividualWins()
-   {
+   public int getIndividualWins() {
       return individualWins;
    }
 
-   public int getIndividualLosses()
-   {
+   public int getIndividualLosses() {
       return individualLosses;
    }
 
-   public String getOpponent()
-   {
+   public String getOpponent() {
       return opponent;
    }
 
-   public ArrayList<String> getPossibleOpponents()
-   {
+   public ArrayList<String> getPossibleOpponents() {
       return possibleOpponents;
    }
 
-   public SortedMap<Integer, String> getRoundPairings()
-   {
+   public SortedMap<Integer, String> getRoundPairings() {
       return roundPairings;
    }
 
-   public void wonRound()
-   {
+   public void wonRound() {
       this.roundWins += 1;
    }
 
-   public void lostRound()
-   {
+   public void lostRound() {
       this.roundLosses += 1;
    }
 
-   public void byeRound()
-   {
+   public void byeRound() {
       this.roundByes += 1;
    }
 
-   public void addIndividualWins(int wins)
-   {
+   public void addIndividualWins(int wins) {
       this.individualWins += wins;
    }
 
-   public void addIndividualLosses(int losses)
-   {
+   public void addIndividualLosses(int losses) {
       this.individualLosses += losses;
    }
 
-   public void addPossibleOpponents(ArrayList<String> playerNames)
-   {
+   public void addPossibleOpponents(ArrayList<String> playerNames) {
       possibleOpponents.add("Bye");
-      for(String player : playerNames) {
+      for (String player : playerNames) {
          if (!player.equals(name)) {
             possibleOpponents.add(player);
          }
       }
    }
 
-   public void removePossibleOpponent(String opponent)
-   {
+   public void removePossibleOpponent(String opponent) {
       //if the removed opponent is on the list of possible opponents, remove it
-      int index=possibleOpponents.indexOf(opponent);
-      if (index != -1)
-      {
+      int index = possibleOpponents.indexOf(opponent);
+      if (index != -1) {
          possibleOpponents.remove(index);
       }
    }
 
-   public boolean canPlayThisPlayer(String playerName)
-   {
+   public boolean canPlayThisPlayer(String playerName) {
       boolean canPlay = false;
-      for(String opponent : possibleOpponents){
+      for (String opponent : possibleOpponents) {
          if (playerName.equals(opponent)) {
             canPlay = true;
          }
@@ -173,14 +149,12 @@ public class PlayerInfo
       return canPlay;
    }
 
-   public void addRoundPairing(int round, String opponent)
-   {
+   public void addRoundPairing(int round, String opponent) {
       roundPairings.put(round, opponent);
       this.opponent = opponent;
    }
 
-   public void setRoundOutcome(int round, int wins, int losses)
-   {
+   public void setRoundOutcome(int round, int wins, int losses) {
       String info = roundPairings.get(round);
       String outcome = wins > losses ? "Win" : "Loss";
       info = info + " / " + outcome + " / " + wins + "-" + losses;
@@ -188,40 +162,32 @@ public class PlayerInfo
       roundPairings.put(round, info);
    }
 
-   public boolean canUseBye()
-   {
+   public boolean canUseBye() {
       return possibleOpponents.contains("Bye");
    }
 
-   public boolean canOnlyGetBye()
-   {
+   public boolean canOnlyGetBye() {
       return (canUseBye() && (possibleOpponents.size() == 1));
    }
 
-   public void savePlayerInfo()
-   {
+   public void savePlayerInfo() {
       EntityManager em = EMFService.get().createEntityManager();
-      try
-      {
+      try {
          em.persist(this);
       }
-      finally
-      {
+      finally {
          em.close();
       }
    }
 
-   public static List findAllPlayers()
-   {
+   public static List findAllPlayers() {
       EntityManager em = EMFService.get().createEntityManager();
       List allPlayers = null;
-      try
-      {
+      try {
          allPlayers = em.createQuery("select from " + PlayerInfo.class.getName()).getResultList();
          allPlayers.size();
       }
-      finally
-      {
+      finally {
          em.close();
       }
       return allPlayers;

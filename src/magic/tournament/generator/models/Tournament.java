@@ -22,15 +22,14 @@ import javax.persistence.Id;
  * Time: 11:09 AM
  */
 @Entity
-public class Tournament
-{
+public class Tournament {
    private static Tournament tournament;
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
    private String creator;
-   
+
    private int prevRound = 0;
    private int round = 1;
    private int numPlayers;
@@ -49,18 +48,18 @@ public class Tournament
       this.format = format;
    }
 
-   public static void newTournament(int numPlayers, int maxRound, int bestOf, String format){
+   public static void newTournament(int numPlayers, int maxRound, int bestOf, String format) {
       tournament = new Tournament(numPlayers, maxRound, bestOf, format);
    }
 
    public static Tournament getTournament() {
       return tournament;
    }
-   
+
    public Long getId() {
       return id;
    }
-   
+
    public String getCreator() {
       return creator;
    }
@@ -86,7 +85,7 @@ public class Tournament
    }
 
    public int getMaxWins() {
-      return (int) Math.ceil(bestOf/2.0);
+      return (int) Math.ceil(bestOf / 2.0);
    }
 
    public String getFormat() {
@@ -115,7 +114,7 @@ public class Tournament
 
    public SortedMap<String, PlayerInfo> cloneMapOfPlayers() {
       SortedMap<String, PlayerInfo> cloneMap = new TreeMap<String, PlayerInfo>();
-      for(Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()){
+      for (Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()) {
          cloneMap.put(infoEntry.getKey(), infoEntry.getValue());
       }
       return cloneMap;
@@ -123,14 +122,14 @@ public class Tournament
 
    public ArrayList<PlayerInfo> getListOfPlayers() {
       ArrayList<PlayerInfo> listOfPlayers = new ArrayList<PlayerInfo>();
-      for(Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()){
+      for (Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()) {
          listOfPlayers.add(infoEntry.getValue());
       }
       return listOfPlayers;
    }
 
    public void registerPlayers(ArrayList<String> playerNames) {
-      for(String name : playerNames){
+      for (String name : playerNames) {
          mapOfPlayers.put(name, new PlayerInfo(name, seed.nextInt(100), playerNames));
       }
       maxDroppable = getNumPlayers() - getMaxRound();
@@ -153,12 +152,10 @@ public class Tournament
     *
     * @return a list of players with final ranks in place
     */
-   public ArrayList<PlayerInfo> getCurrentRankings()
-   {
+   public ArrayList<PlayerInfo> getCurrentRankings() {
       ArrayList<PlayerInfo> listOfPlayers = getRankSortedListOfPlayers();
       int rank = 1;
-      for (PlayerInfo player : listOfPlayers)
-      {
+      for (PlayerInfo player : listOfPlayers) {
          player.setRank(rank++);
       }
       return listOfPlayers;
@@ -169,30 +166,29 @@ public class Tournament
    }
 
    public boolean dropPlayer(String dropped) {
-      if((round > 1) && (maxDroppable > 0)) {
+      if ((round > 1) && (maxDroppable > 0)) {
          mapOfPlayers.remove(dropped);
          maxDroppable--;
 
          //for each player remove dropped player and add "Bye" to list of possible opponents
          ArrayList<PlayerInfo> listOfPlayers = getListOfPlayers();
-         for (PlayerInfo player : listOfPlayers)
-         {
+         for (PlayerInfo player : listOfPlayers) {
             player.removePossibleOpponent(dropped);
             save(player);
          }
          return true;
-      }
-      else {
+      } else {
          return false;
       }
    }
 
    /**
     * sets the outcome of the round for each player
-    * @param playerName the player's playerName
+    *
+    * @param playerName   the player's playerName
     * @param opponentName the opponentName's playerName
-    * @param wins the player's wins
-    * @param losses the player's losses
+    * @param wins         the player's wins
+    * @param losses       the player's losses
     */
    public void setPlayerOutcome(String playerName, String opponentName, int wins, int losses) {
       PlayerInfo player = mapOfPlayers.get(playerName);
@@ -200,15 +196,13 @@ public class Tournament
          if (!opponentName.equals("Bye")) {
             if (wins > losses) {
                player.wonRound();
-            }
-            else {
+            } else {
                player.lostRound();
             }
             player.addIndividualWins(wins);
             player.addIndividualLosses(losses);
             player.setRoundOutcome(round, wins, losses);
-         }
-         else {
+         } else {
             player.byeRound();
          }
          save(player);
@@ -217,7 +211,8 @@ public class Tournament
 
    /**
     * Sets both players info object to record the round and opponentName for the round
-    * @param playerName name of player
+    *
+    * @param playerName   name of player
     * @param opponentName name of opponent
     */
    public void setRoundPairing(String playerName, String opponentName) {
@@ -238,6 +233,7 @@ public class Tournament
 
    /**
     * saves the player to the map object by removing the old one, and adding the new one
+    *
     * @param player the PlayerInfo object for that player
     */
    private void save(PlayerInfo player) {
