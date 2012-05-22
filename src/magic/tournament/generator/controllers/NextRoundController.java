@@ -33,9 +33,7 @@ public class NextRoundController extends HttpServlet
       int maxWins = tournament.getMaxWins();
       int bestOf = tournament.getBestOf();
 
-      boolean hasErrors = validateValues(playerWins, playerLosses, maxWins, bestOf);
-
-      if(!hasErrors){
+      if(hasValidValues(playerWins, playerLosses, maxWins, bestOf)){
          for (int i = 0; i < playerWins.length; i++) {
             String playerName = players[i];
             String opponentName = opponents[i];
@@ -86,27 +84,34 @@ public class NextRoundController extends HttpServlet
       }
    }
 
-   private boolean validateValues(String[] playerWins, String[] playerLosses, int maxWins, int bestOf)
+   private boolean hasValidValues(String[] playerWins, String[] playerLosses, int maxWins, int bestOf)
    {
-      boolean hasErrors = false;
       for (int i = 0; i < playerWins.length; i++)
       {
+         //if something is blank, return error
+         if((playerWins[i].equals("")) || (playerLosses[i].equals(""))){
+            return false;
+         }
+
+         //get the integer values of the wins and losses
          int wins = Integer.valueOf(playerWins[i]);
          int losses = Integer.valueOf(playerLosses[i]);
-         if((wins != -1) && (losses != -1)){
-            if ((wins >= 0) && (wins <= maxWins) && (losses >= 0) && (losses <= maxWins))
-            {
-               if ((wins + losses > bestOf))
-               {
-                  hasErrors = true;
-               }
-            }
-            else
-            {
-               hasErrors = true;
-            }
+
+         //if values are less than zero, return error
+         if((wins < 0) || (losses < 0)) {
+            return false;
+         }
+
+         //if values are greater than maxWins, return error
+         if((wins > maxWins) || (losses > maxWins)) {
+            return false;
+         }
+
+         //if the sum of the wins and losses is greater than bestOf, return error
+         if((wins + losses) > bestOf){
+            return false;
          }
       }
-      return hasErrors;
+      return true;
    }
 }
