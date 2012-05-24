@@ -15,9 +15,15 @@
 
 <body>
    <div class="banner">
-      <form class="new" action="new">
-         <input type="image" src="/images/mtg-header.png" alt="Magic Tournament Generator" style="border: 0; padding: 0;">
-      </form>
+      <div class="newbutton">
+         <form action="new">
+            <input type="submit" value="Reset Tournament" style="width: auto; font-size: 0.75em">
+         </form>
+      </div>
+      <img src="/images/mtg-header.png" alt="Magic Tournament Generator" style="border: 0; padding: 0;">
+      <%--<form class="new" action="new">--%>
+         <%--<input type="image" src="/images/mtg-header.png" alt="Magic Tournament Generator" style="border: 0; padding: 0;">--%>
+      <%--</form>--%>
    </div>
    <div class="header">
       <%= request.getAttribute("title") %>

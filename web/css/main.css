@@ -40,11 +40,20 @@ body {
     -moz-box-shadow: 0 0 0.3em #255b17;
     -webkit-box-shadow: 0 0 0.3em #255b17;
     box-shadow: 0 0 0.3em #255b17;
+    margin-bottom: 20px;
 }
 
 .banner {
     background-color: #333;
+    margin-top: 20px;
     height: 100px;
+    position: relative;
+}
+
+.banner .newbutton {
+   position: absolute;
+   top: 6px;
+   right: 6px;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
