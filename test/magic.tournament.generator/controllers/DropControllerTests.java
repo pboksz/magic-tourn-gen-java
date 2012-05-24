@@ -55,7 +55,7 @@ public class DropControllerTests
       expect(request.getRequestDispatcher("/pages/results.jsp")).andReturn(createMock(RequestDispatcher.class));
 
       replay(request);
-      drop.doGet(request, null);
+      drop.doPost(request, null);
       verify(request);
    }
 }

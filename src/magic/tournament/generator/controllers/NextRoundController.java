@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 1:29 PM
  */
 public class NextRoundController extends HttpServlet {
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       Tournament tournament = Tournament.getTournament();
       RoundPairings roundPairings = new RoundPairings();
 

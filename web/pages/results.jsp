@@ -12,11 +12,7 @@
 <html>
 <body>
 <div class="main">
-   <% if(request.getAttribute("title") != "Final Results") { %>
-      <form name="results" action="show">
-   <% } else { %>
-      <form name="results" action="new">
-   <% } %>
+   <form name="results" action="show" method="post">
       <div class="results">
          <table>
             <thead>
@@ -67,7 +63,7 @@
                   <%= result.getName() %>
                   <div class="drop">
                      <% if ((Boolean) request.getAttribute("droppable")) { %>
-                        <form action="drop" onclick="return dropCheck('<%= result.getName() %>')">
+                        <form action="drop" onclick="return dropCheck('<%= result.getName() %>')" method="post">
                            <input type="image" name="dropped" src="/images/delete.png" alt="Drop Player" value="<%= result.getName() %>" style="border: 0; padding: 0" >
                         </form>
                      <% } %>
@@ -102,8 +98,6 @@
       </div>
       <% if(request.getAttribute("title") != "Final Results") { %>
          <input type="submit" value="Start Next Round">
-      <% } else { %>
-         <input type="submit" value="New Tournament">
       <% } %>
    </form>
 </div>

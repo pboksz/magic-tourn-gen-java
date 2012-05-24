@@ -14,7 +14,7 @@
 <div class="main">
    <% int maxWins = (Integer) request.getAttribute("maxWins"); %>
    <% int bestOf = (Integer) request.getAttribute("bestOf"); %>
-   <form name="show" action="nextround" onsubmit="return verifyValues(<%= bestOf %>, <%= maxWins %>)">
+   <form name="show" action="nextround" onsubmit="return verifyValues(<%= bestOf %>, <%= maxWins %>)" method="post">
       <div class="show">
          <table id="showtable">
             <thead>
