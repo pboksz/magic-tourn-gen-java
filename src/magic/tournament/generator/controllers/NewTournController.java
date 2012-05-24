@@ -18,8 +18,8 @@ public class NewTournController extends HttpServlet
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
       request.setAttribute("title", "Tournament Settings");
-      request.setAttribute("message", "Please select the tournament settings");
-      request.setAttribute("error", "The tournament has been reset");
+      request.setAttribute("message", "Please select the tournament settings.");
+      request.setAttribute("error", "The tournament has been reset.");
 
       request.getRequestDispatcher("/pages/index.jsp").forward(request, response);
    }

@@ -27,7 +27,7 @@ public class ShowController extends HttpServlet
       RoundPairings roundPairings =  new RoundPairings();
 
       request.setAttribute("title", "Round " + tournament.getRound());
-      request.setAttribute("message", "Please enter the wins of each player and opponent");
+      request.setAttribute("message", "Please enter the wins of each player and opponent.");
 
       if(tournament.isNextRound()){
          roundPairings.setRoundPairings();

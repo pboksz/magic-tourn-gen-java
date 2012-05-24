@@ -24,7 +24,7 @@ public class DropController extends HttpServlet
       String dropped = request.getParameter("dropped");
       
       if(!tournament.dropPlayer(dropped)){
-         request.setAttribute("error", dropped + " cannot be dropped because there would not be enough players left to adequately pair everyone in the remaining rounds");
+         request.setAttribute("error", dropped + " cannot be dropped because there would not be enough players left to adequately pair everyone in the remaining rounds.");
       }
       String title = "Round " + tournament.getPrevRound() + " Standings";
       if(tournament.getRound() > tournament.getMaxRound()) {

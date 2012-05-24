@@ -24,7 +24,7 @@ public class RegisterController extends HttpServlet
       Tournament tournament = Tournament.getTournament();
 
       request.setAttribute("title", "Registered Players");
-      request.setAttribute("message", "Players will be paired by the order in which they are seeded");
+      request.setAttribute("message", "Players will be paired by the order in which they are seeded.");
 
       if(tournament.getListOfPlayers().isEmpty()){
          ArrayList<String> playerNames = new ArrayList<String>();

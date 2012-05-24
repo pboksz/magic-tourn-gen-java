@@ -18,7 +18,7 @@ public class IndexController extends HttpServlet
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
    {
       request.setAttribute("title", "Tournament Settings");
-      request.setAttribute("message", "Please select the tournament settings");
+      request.setAttribute("message", "Please select the tournament settings.");
 
       request.getRequestDispatcher("/pages/index.jsp").forward(request, response);
    }
