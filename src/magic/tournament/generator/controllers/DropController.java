@@ -17,12 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DropController extends HttpServlet
 {
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-   {
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       Tournament tournament = Tournament.getTournament();
-
       String dropped = request.getParameter("dropped");
-      
+
       if(!tournament.dropPlayer(dropped)){
          request.setAttribute("error", dropped + " cannot be dropped because there would not be enough players left to adequately pair everyone in the remaining rounds.");
       }
@@ -35,5 +33,10 @@ public class DropController extends HttpServlet
       request.setAttribute("results", tournament.getCurrentRankings());
 
       request.getRequestDispatcher("/pages/results.jsp").forward(request, response);
+   }
+
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
+   {
+      doGet(request, response);
    }
 }

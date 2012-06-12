@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 1:29 PM
  */
 public class NextRoundController extends HttpServlet {
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       Tournament tournament = Tournament.getTournament();
       RoundPairings roundPairings = new RoundPairings();
 
@@ -76,6 +76,10 @@ public class NextRoundController extends HttpServlet {
 
          request.getRequestDispatcher("/pages/show.jsp").forward(request, response);
       }
+   }
+
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+      doGet(request, response);
    }
 
    private boolean hasValidValues(String[] playerWins, String[] playerLosses, int maxWins, int bestOf) {

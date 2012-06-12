@@ -22,6 +22,7 @@ public class Tournament
    private int numPlayers;
    private int maxRound;
    private int bestOf;
+   private int maxWins;
    private String format;
 
    private int maxDroppable = 1;
@@ -32,6 +33,7 @@ public class Tournament
       this.numPlayers = numPlayers;
       this.maxRound = maxRound;
       this.bestOf = bestOf;
+      this.maxWins = (int) Math.ceil(bestOf/2.0);
       this.format = format;
    }
    
@@ -64,7 +66,7 @@ public class Tournament
    }
 
    public int getMaxWins() {
-      return (int) Math.ceil(bestOf/2.0);
+      return maxWins;
    }
 
    public String getFormat() {

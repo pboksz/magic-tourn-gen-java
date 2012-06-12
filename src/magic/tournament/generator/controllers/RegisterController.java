@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RegisterController extends HttpServlet
 {
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-   {
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       Tournament tournament = Tournament.getTournament();
 
       request.setAttribute("title", "Registered Players");
@@ -34,12 +33,16 @@ public class RegisterController extends HttpServlet
             String value = ((String[]) params.get(key))[0];
             playerNames.add(validateName(value, (String) key));
          }
-         
+
          tournament.registerPlayers(playerNames);
       }
       request.setAttribute("seedSorted", tournament.getSeedSortedListOfPlayers());
 
       request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+   }
+
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+      doGet(request, response);
    }
    
    public String validateName(String value, String key) {

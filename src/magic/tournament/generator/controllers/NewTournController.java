@@ -23,4 +23,8 @@ public class NewTournController extends HttpServlet
 
       request.getRequestDispatcher("/pages/index.jsp").forward(request, response);
    }
+
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+      doGet(request, response);
+   }
 }
