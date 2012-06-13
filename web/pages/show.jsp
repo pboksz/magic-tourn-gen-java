@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/includes/header.jsp"%>
 <html>
-<body onload="setTimeout(reload, 900000);">
+<body onload="setTimeout(reload, 600000);">
 <div class="main">
    <% int maxWins = (Integer) request.getAttribute("maxWins"); %>
    <% int bestOf = (Integer) request.getAttribute("bestOf"); %>
