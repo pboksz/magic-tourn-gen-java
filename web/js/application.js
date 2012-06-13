@@ -104,3 +104,8 @@ function verifyValues(bestOf, maxWins) {
    }
    return isValid;
 }
+
+function reload() {
+   document.show.action = "show";
+   document.show.submit();
+}

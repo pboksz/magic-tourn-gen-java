@@ -10,11 +10,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/includes/header.jsp"%>
 <html>
-<body>
+<body onload="setTimeout(reload, 900000);">
 <div class="main">
    <% int maxWins = (Integer) request.getAttribute("maxWins"); %>
    <% int bestOf = (Integer) request.getAttribute("bestOf"); %>
-   <form name="show" action="nextround" onsubmit="return verifyValues(<%= bestOf %>, <%= maxWins %>)" method="show">
+   <form name="show" action="nextround" onsubmit="return verifyValues(<%= bestOf %>, <%= maxWins %>)" method="post">
       <div class="show">
          <table id="showtable">
             <thead>
@@ -36,7 +36,10 @@
                </th>
             </tr>
             </thead>
-            <%--TODO--%>
+
+            <% int counter = 0; %>
+            <% String[] reloadWins = (String[]) request.getAttribute("reloadWins"); %>
+            <% String[] reloadLosses = (String[]) request.getAttribute("reloadLosses"); %>
             <% for(PlayerInfo pair : (ArrayList<PlayerInfo>) request.getAttribute("listOfPairs")){ %>
             <tr>
                <td>
@@ -45,7 +48,11 @@
                </td>
                <td>
                   <% if(!pair.getName().equals("Bye") && !pair.getOpponent().equals("Bye")) { %>
-                     <input type="text" name="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
+                     <% if(reloadWins != null) { %>
+                        <input type="text" name="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)" value="<%= reloadWins[counter] %>">
+                     <% } else { %>
+                        <input type="text" name="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
+                     <% } %>
                   <% } else { %>
                      <input type="hidden" name="wins" value="-1">
                   <% } %>
@@ -59,12 +66,17 @@
                </td>
                <td>
                   <% if(!pair.getName().equals("Bye") && !pair.getOpponent().equals("Bye")) { %>
-                     <input type="text" name="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
+                     <% if(reloadLosses != null) { %>
+                        <input type="text" name="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)" value="<%= reloadLosses[counter] %>">
+                     <% } else { %>
+                        <input type="text" name="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
+                     <% } %>
                   <% } else { %>
                      <input type="hidden" name="losses" value="-1">
                   <% } %>
                </td>
             </tr>
+            <% counter++; %>
             <% } %>
          </table>
       </div>

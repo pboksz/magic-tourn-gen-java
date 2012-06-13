@@ -45,9 +45,14 @@ public class ShowController extends HttpServlet
       request.setAttribute("maxWins", tournament.getMaxWins());
       request.setAttribute("bestOf", tournament.getBestOf());
 
+      //added this to deal with timed refreshes
+      String[] reloadWins = request.getParameterValues("wins");
+      String[] reloadLosses = request.getParameterValues("losses");
+      request.setAttribute("reloadWins", reloadWins);
+      request.setAttribute("reloadLosses", reloadLosses);
+
       request.getRequestDispatcher("/pages/show.jsp").forward(request, response);
    }
-
    
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       doGet(request, response);

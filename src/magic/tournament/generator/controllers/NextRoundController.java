@@ -53,6 +53,13 @@ public class NextRoundController extends HttpServlet {
 
          getServletContext().getRequestDispatcher("/pages/results.jsp").forward(request, response);
       } else {
+         //get previous values for wins and losses
+         String[] reloadWins = request.getParameterValues("wins");
+         String[] reloadLosses = request.getParameterValues("losses");
+         request.setAttribute("reloadWins", reloadWins);
+         request.setAttribute("reloadLosses", reloadLosses);
+
+         //set messages to be displayed
          request.setAttribute("title", "Round " + tournament.getRound());
          request.setAttribute("message", "Please enter the wins of each player and opponent.");
          request.setAttribute("error", "The values for wins for each player has to be a number, cannot be blank, and should sum to between " + tournament.getMaxWins() + " and " + tournament.getBestOf() + ".");
@@ -62,6 +69,7 @@ public class NextRoundController extends HttpServlet {
             tournament.incPrevRound();
          }
 
+         //get all the variables that need to be put into the show.jsp
          ArrayList<PlayerInfo> listOfPairs = new ArrayList<PlayerInfo>();
          SortedMap<String, PlayerInfo> clonedMapOfPlayers = tournament.cloneMapOfPlayers();
          while (clonedMapOfPlayers.size() != 0) {
