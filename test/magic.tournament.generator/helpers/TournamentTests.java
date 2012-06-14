@@ -40,8 +40,7 @@ public class TournamentTests
 
    @Before
    public void initializeTournament() {
-      Tournament.newTournament(4, 3, 3, "Swiss");
-      tournament = Tournament.getTournament();
+      tournament = new Tournament(4, 3, 3, "Swiss");
       tournament.registerPlayers(getAllPlayers());
    }
 

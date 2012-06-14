@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowController extends HttpServlet
 {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-      Tournament tournament = Tournament.getTournament();
-      RoundPairings roundPairings =  new RoundPairings();
+      Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
+      RoundPairings roundPairings =  new RoundPairings(tournament);
 
       System.out.println(tournament);
 
@@ -53,6 +53,7 @@ public class ShowController extends HttpServlet
       request.setAttribute("reloadWins", reloadWins);
       request.setAttribute("reloadLosses", reloadLosses);
 
+      request.getSession().setAttribute("tournament", tournament);
       request.getRequestDispatcher("/pages/show.jsp").forward(request, response);
    }
    

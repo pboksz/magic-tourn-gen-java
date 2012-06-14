@@ -10,8 +10,12 @@ import java.util.ArrayList;
  */
 public class RoundPairings
 {
-   Tournament tournament = Tournament.getTournament();
+   Tournament tournament;
    ArrayList<PlayerPairing> queue;
+
+   public RoundPairings(Tournament tournament) {
+      this.tournament = tournament;
+   }
 
    /**
     * method the recursively tries to set the pairings

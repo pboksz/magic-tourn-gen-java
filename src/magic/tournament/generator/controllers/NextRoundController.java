@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class NextRoundController extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-      Tournament tournament = Tournament.getTournament();
-      RoundPairings roundPairings = new RoundPairings();
+      Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
+      RoundPairings roundPairings = new RoundPairings(tournament);
 
       String[] players = request.getParameterValues("player");
       String[] opponents = request.getParameterValues("opponent");
@@ -51,6 +51,7 @@ public class NextRoundController extends HttpServlet {
          request.setAttribute("droppable", (tournament.hasDroppable() && (tournament.getRound() <= tournament.getMaxRound())));
          request.setAttribute("results", tournament.getCurrentRankings());
 
+         request.getSession().setAttribute("tournament", tournament);
          getServletContext().getRequestDispatcher("/pages/results.jsp").forward(request, response);
       } else {
          //get previous values for wins and losses
@@ -82,6 +83,7 @@ public class NextRoundController extends HttpServlet {
          request.setAttribute("maxWins", tournament.getMaxWins());
          request.setAttribute("bestOf", tournament.getBestOf());
 
+         request.getSession().setAttribute("tournament", tournament);
          request.getRequestDispatcher("/pages/show.jsp").forward(request, response);
       }
    }

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DropController extends HttpServlet
 {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-      Tournament tournament = Tournament.getTournament();
+      Tournament tournament = (Tournament) request.getAttribute("tournament");
       String dropped = request.getParameter("dropped");
 
       if(!tournament.dropPlayer(dropped)){
@@ -32,6 +32,7 @@ public class DropController extends HttpServlet
       request.setAttribute("droppable", tournament.hasDroppable());
       request.setAttribute("results", tournament.getCurrentRankings());
 
+      request.setAttribute("tournament", tournament);
       request.getRequestDispatcher("/pages/results.jsp").forward(request, response);
    }
 

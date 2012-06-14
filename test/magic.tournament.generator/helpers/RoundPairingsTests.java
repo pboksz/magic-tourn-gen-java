@@ -50,10 +50,9 @@ public class RoundPairingsTests
 
    @Before
    public void initializeTournament() {
-      Tournament.newTournament(4, 3, 3, "Swiss");
-      tournament = Tournament.getTournament();
+      tournament = new Tournament(4, 3, 3, "Swiss");
       tournament.registerPlayers(getAllPlayers(4));
-      pairings = new RoundPairings();
+      pairings = new RoundPairings(tournament);
    }
 
    @Test
@@ -99,10 +98,9 @@ public class RoundPairingsTests
 
    @Test
    public void testInitialSeedingWithBye() {
-      Tournament.newTournament(5, 3, 3, "Swiss");
-      tournament = Tournament.getTournament();
+      tournament = new Tournament(5, 3, 3, "Swiss");
       tournament.registerPlayers(getAllPlayers(5));
-      pairings = new RoundPairings();
+      pairings = new RoundPairings(tournament);
       pairings.setRoundPairings();
       ArrayList<PlayerInfo> listOfPlayers = tournament.getSeedSortedListOfPlayers();
 
@@ -125,10 +123,9 @@ public class RoundPairingsTests
 
    @Test
    public void testByePairingRoundTwo() {
-      Tournament.newTournament(5, 3, 3, "Swiss");
-      tournament = Tournament.getTournament();
+      tournament = new Tournament(5, 3, 3, "Swiss");
       tournament.registerPlayers(getAllPlayers(5));
-      pairings = new RoundPairings();
+      pairings = new RoundPairings(tournament);
       pairings.setRoundPairings();
       setFirstRoundWithFive();
       pairings.setRoundPairings();

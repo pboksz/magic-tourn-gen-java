@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterController extends HttpServlet
 {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-      Tournament tournament = Tournament.getTournament();
+      Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
 
       request.setAttribute("title", "Registered Players");
       request.setAttribute("message", "Players will be paired by the order in which they are seeded.");
@@ -38,6 +38,7 @@ public class RegisterController extends HttpServlet
       }
       request.setAttribute("seedSorted", tournament.getSeedSortedListOfPlayers());
 
+      request.getSession().setAttribute("tournament", tournament);
       request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
    }
 

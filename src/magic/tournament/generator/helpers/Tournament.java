@@ -15,8 +15,6 @@ import java.util.TreeMap;
  */
 public class Tournament
 {
-   private static Tournament tournament;
-
    private int prevRound = 0;
    private int round = 1;
    private int numPlayers;
@@ -35,14 +33,6 @@ public class Tournament
       this.bestOf = bestOf;
       this.maxWins = (int) Math.ceil(bestOf/2.0);
       this.format = format;
-   }
-   
-   public static void newTournament(int numPlayers, int maxRound, int bestOf, String format){
-      tournament = new Tournament(numPlayers, maxRound, bestOf, format);
-   }
-
-   public static Tournament getTournament() {
-      return tournament;
    }
 
    public int getPrevRound() {

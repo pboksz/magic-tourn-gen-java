@@ -26,9 +26,10 @@ public class CreateController extends HttpServlet
       int bestOf = Integer.valueOf(request.getParameter("bestOf"));
       String format = request.getParameter("whichFormat");
 
-      Tournament.newTournament(numPlayers, maxRounds, bestOf, format);
+      Tournament tournament = new Tournament(numPlayers, maxRounds, bestOf, format);
       request.setAttribute("howManyPlayers", numPlayers);
 
+      request.getSession().setAttribute("tournament", tournament);
       request.getRequestDispatcher("/pages/addplayers.jsp").forward(request, response);
    }
    
