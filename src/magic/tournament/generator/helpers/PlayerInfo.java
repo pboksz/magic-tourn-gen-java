@@ -1,5 +1,9 @@
 package magic.tournament.generator.helpers;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -10,8 +14,17 @@ import java.util.TreeMap;
  * Date: 4/2/12
  * Time: 11:11 AM
  */
-public class PlayerInfo
-{
+public class PlayerInfo implements Serializable {
+   private static final long serialVersionUID = 7526472295622776147L;
+
+   private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
+      aInputStream.defaultReadObject();
+   }
+
+   private void writeObject(ObjectOutputStream aOutputStream) throws IOException {
+      aOutputStream.defaultWriteObject();
+   }
+
    private String name;
    private int seed;
    private int rank = 0;
