@@ -54,7 +54,6 @@ function addOptions(num)
    }
 }
 
-//TODO still testing this, but coloring works individually
 function verifyValue(field, maxNum)
 {
    //if there is an error do a red outline
@@ -62,6 +61,7 @@ function verifyValue(field, maxNum)
    {
       field.style.borderColor = "#ff8888";
       field.style.mozBoxShadow = "0 0 0.25em #ff8888";
+      field.style.webkitBoxShadow = "0 0 0.25em #ff8888";
       field.style.boxShadow = "0 0 0.25em #ff8888";
    }
    //else do a blue one
@@ -69,42 +69,61 @@ function verifyValue(field, maxNum)
    {
       field.style.borderColor = "#b2d1ff";
       field.style.mozBoxShadow = "0 0 0.25em #b2d1ff";
+      field.style.webkitBoxShadow = "0 0 0.25em #b2d1ff";
       field.style.boxShadow = "0 0 0.25em #b2d1ff";
    }
 }
 
 //TODO testing this to check that the sum of the two are valid, should highlight the incorrect rows
-//TODO should send an error?
 function verifyValues(bestOf, maxWins) {
-   var isValid = true;
+   isValid = true;
    var wins = document.show.wins;
    var losses = document.show.losses;
 
-   for(var i = 0; i < wins.length; i++){
+   for(var i = 0; i < wins.length; i++) {
+      //if something is blank, return error
+      //CASE: nothing is filled in for values
+      if((wins[i].value == "") || (losses[i].value == "")) {
+         isValid = setRowError(i);
+      }
+
+      //get the values of wins and losses
       var win = parseInt(wins[i].value);
       var loss = parseInt(losses[i].value);
+
+      //skip over rows that have byes
       if((win != -1) && (loss != -1)){
-         var table = document.getElementById("showtable");
-         var row = table.tBodies[0].rows[i];
-         var sum = win + loss;
-         if((sum > bestOf) || (sum < maxWins)) {
-//            row.style.borderBottomWidth = "2px";
-//            row.style.borderLeftWidth = "2px";
-//            row.style.borderRightWidth = "2px";
-//            row.style.borderColor = "#ff8888";
-//            isValid = false;
+         //if values are greater than maxWins, return error
+         //CASE: wins is 4 and maxWins is 2 in a bestOf 3 tournament
+         if((win > maxWins) || (loss > maxWins)) {
+            isValid = setRowError(i);
          }
-         else {
-//            row.style.borderBottomWidth = "2px";
-//            row.style.borderLeftWidth = "2px";
-//            row.style.borderRightWidth = "2px";
-//            row.style.borderColor = "#b2d1ff";
+         else if(win + loss > bestOf) {
+            isValid = setRowError(i);
+         }
+         else if(!((win == maxWins) || (loss == maxWins))) {
+            isValid = setRowError(i);
          }
       }
    }
    return isValid;
 }
 
+//helper function to change row visual
+function setRowError(rowNum) {
+   var table = document.getElementById("showtable");
+   var row = table.tBodies[0].rows[rowNum];
+
+   //TODO need to move this visual above the individual cells
+   row.style.mozBoxShadow = "0 0 0.25em #b2d1ff";
+   row.style.webkitBoxShadow = " 0 0 0.25em #b2d1ff";
+   row.style.boxShadow = "0 0 0.25em #b2d1ff";
+
+   document.getElementById("sumerror").style.display = "block";
+   return false;
+}
+
+//This is not going to be useful as this would put an unnecessary strain on the server
 function reload() {
    document.show.action = "show";
    document.show.submit();

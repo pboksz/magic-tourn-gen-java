@@ -11,10 +11,16 @@
 <%@ include file="/includes/header.jsp"%>
 <html>
 <body>
+
+<% int maxWins = (Integer) request.getAttribute("maxWins"); %>
+<% int bestOf = (Integer) request.getAttribute("bestOf"); %>
+
+<div id="sumerror" class="errors" style="display: none">
+   The values for wins for each player has to be a number, cannot be blank, and should sum to between <%= maxWins %> and <%= bestOf %>.
+</div>
+
 <%--<body onload="setTimeout(reload, 600000);">--%>
 <div class="main">
-   <% int maxWins = (Integer) request.getAttribute("maxWins"); %>
-   <% int bestOf = (Integer) request.getAttribute("bestOf"); %>
    <form name="show" action="nextround" onsubmit="return verifyValues(<%= bestOf %>, <%= maxWins %>)" method="post">
       <div class="show">
          <table id="showtable">
