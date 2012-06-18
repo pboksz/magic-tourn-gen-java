@@ -19,7 +19,6 @@
    The values for wins for each player has to be a number, cannot be blank, and should sum to between <%= maxWins %> and <%= bestOf %>.
 </div>
 
-<%--<body onload="setTimeout(reload, 600000);">--%>
 <div class="main">
    <form name="show" action="nextround" onsubmit="return verifyValues(<%= bestOf %>, <%= maxWins %>)" method="post">
       <div class="show">
@@ -43,10 +42,6 @@
                </th>
             </tr>
             </thead>
-
-            <% int counter = 0; %>
-            <% String[] reloadWins = (String[]) request.getAttribute("reloadWins"); %>
-            <% String[] reloadLosses = (String[]) request.getAttribute("reloadLosses"); %>
             <% for(PlayerInfo pair : (ArrayList<PlayerInfo>) request.getAttribute("listOfPairs")){ %>
             <tr>
                <td>
@@ -55,11 +50,7 @@
                </td>
                <td>
                   <% if(!pair.getName().equals("Bye") && !pair.getOpponent().equals("Bye")) { %>
-                     <% if(reloadWins != null) { %>
-                        <input type="text" name="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)" value="<%= reloadWins[counter] %>">
-                     <% } else { %>
-                        <input type="text" name="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
-                     <% } %>
+                     <input type="text" name="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
                   <% } else { %>
                      <input type="hidden" name="wins" value="-1">
                   <% } %>
@@ -73,17 +64,12 @@
                </td>
                <td>
                   <% if(!pair.getName().equals("Bye") && !pair.getOpponent().equals("Bye")) { %>
-                     <% if(reloadLosses != null) { %>
-                        <input type="text" name="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)" value="<%= reloadLosses[counter] %>">
-                     <% } else { %>
-                        <input type="text" name="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
-                     <% } %>
+                     <input type="text" name="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
                   <% } else { %>
                      <input type="hidden" name="losses" value="-1">
                   <% } %>
                </td>
             </tr>
-            <% counter++; %>
             <% } %>
          </table>
       </div>

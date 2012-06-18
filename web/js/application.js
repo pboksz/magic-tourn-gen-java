@@ -114,17 +114,16 @@ function setRowError(rowNum) {
    var table = document.getElementById("showtable");
    var row = table.tBodies[0].rows[rowNum];
 
+//   for(var i=0; i<row.cells.length; i++) {
+//      var cell = row.cells[i];
+//      cell.style.borderColor = "#ff8888";
+//   }
+
    //TODO need to move this visual above the individual cells
-   row.style.mozBoxShadow = "0 0 0.25em #b2d1ff";
-   row.style.webkitBoxShadow = " 0 0 0.25em #b2d1ff";
-   row.style.boxShadow = "0 0 0.25em #b2d1ff";
+//   row.style.mozBoxShadow = "0 0 0.25em #b2d1ff";
+//   row.style.webkitBoxShadow = " 0 0 0.25em #b2d1ff";
+//   row.style.boxShadow = "0 0 0.25em #b2d1ff";
 
    document.getElementById("sumerror").style.display = "block";
    return false;
-}
-
-//This is not going to be useful as this would put an unnecessary strain on the server
-function reload() {
-   document.show.action = "show";
-   document.show.submit();
 }
