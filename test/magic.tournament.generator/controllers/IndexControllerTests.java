@@ -26,7 +26,7 @@ public class IndexControllerTests
    @Test
    public void testIndexController() throws Exception {
       request.setAttribute("title", "Tournament Settings");
-      request.setAttribute("message", "Please select the tournament settings");
+      request.setAttribute("message", "Please select the tournament settings.");
 
       expect(request.getRequestDispatcher("/pages/index.jsp")).andReturn(createMock(RequestDispatcher.class));
 

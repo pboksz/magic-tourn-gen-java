@@ -25,8 +25,6 @@ public class ShowController extends HttpServlet
       Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
       RoundPairings roundPairings =  new RoundPairings(tournament);
 
-      System.out.println(tournament);
-
       request.setAttribute("title", "Round " + tournament.getRound());
       request.setAttribute("message", "Please enter the wins of each player and opponent.");
 

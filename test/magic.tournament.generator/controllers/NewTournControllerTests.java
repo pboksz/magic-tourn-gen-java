@@ -32,8 +32,8 @@ public class NewTournControllerTests
    @Test
    public void testNewTourController() throws Exception{
       request.setAttribute("title", "Tournament Settings");
-      request.setAttribute("message", "Please select the tournament settings");
-      request.setAttribute("error", "The tournament has been reset");
+      request.setAttribute("message", "Please select the tournament settings.");
+      request.setAttribute("error", "The tournament has been reset.");
 
       expect(request.getRequestDispatcher("/pages/index.jsp")).andReturn(createMock(RequestDispatcher.class));
 
