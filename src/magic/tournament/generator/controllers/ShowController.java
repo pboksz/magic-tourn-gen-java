@@ -28,11 +28,13 @@ public class ShowController extends HttpServlet
       request.setAttribute("title", "Round " + tournament.getRound());
       request.setAttribute("message", "Please enter the wins of each player and opponent.");
 
+      //if this is the next round, set the pairings and increment the prevRound counter
       if(tournament.isNextRound()){
          roundPairings.setRoundPairings();
          tournament.incPrevRound();
       }
 
+      //clone the player map and use it to add pairs to the list that will be displayed on the next page
       ArrayList<PlayerInfo> listOfPairs = new ArrayList<PlayerInfo>();
       SortedMap<String, PlayerInfo> clonedMapOfPlayers = tournament.cloneMapOfPlayers();
       while(clonedMapOfPlayers.size() != 0) {
@@ -45,6 +47,7 @@ public class ShowController extends HttpServlet
       request.setAttribute("maxWins", tournament.getMaxWins());
       request.setAttribute("bestOf", tournament.getBestOf());
 
+      //set the tournament object so it can be passed to the view
       request.getSession().setAttribute("tournament", tournament);
       request.getRequestDispatcher("/pages/show.jsp").forward(request, response);
    }

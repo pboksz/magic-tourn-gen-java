@@ -111,7 +111,7 @@ public class TournamentTests
    
    @Test
    public void testHasDroppable() {
-      assertTrue(tournament.hasDroppable());
+      assertTrue(tournament.canDropPlayer());
    }
 
    @Test
@@ -120,7 +120,7 @@ public class TournamentTests
       setFirstRound();
 
       assertTrue(tournament.dropPlayer("player4"));
-      assertFalse(tournament.hasDroppable());
+      assertFalse(tournament.canDropPlayer());
       assertEquals(3, tournament.getNumPlayers());
       assertFalse(tournament.getMapOfPlayers().containsKey("player4"));
    }

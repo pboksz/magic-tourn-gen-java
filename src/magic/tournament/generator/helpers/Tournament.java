@@ -148,8 +148,8 @@ public class Tournament implements Serializable {
       return listOfPlayers;
    }
 
-   public boolean hasDroppable() {
-      return (maxDroppable > 0);
+   public boolean canDropPlayer() {
+      return ((maxDroppable > 0) && (round <= maxRound));
    }
 
    public boolean dropPlayer(String dropped) {

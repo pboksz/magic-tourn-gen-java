@@ -25,19 +25,24 @@ public class RegisterController extends HttpServlet
       request.setAttribute("title", "Registered Players");
       request.setAttribute("message", "Players will be paired by the order in which they are seeded.");
 
+      //if the list of players is empty take the players entered in the previous page, else take whats already in the object
       if(tournament.getListOfPlayers().isEmpty()){
          ArrayList<String> playerNames = new ArrayList<String>();
          Map params = request.getParameterMap();
+
+         //for each player use the value or, if thats blank, the key
          for (Object key : params.keySet())
          {
             String value = ((String[]) params.get(key))[0];
             playerNames.add(validateName(value, (String) key));
          }
 
+         //put each player into the tournament object
          tournament.registerPlayers(playerNames);
       }
       request.setAttribute("seedSorted", tournament.getSeedSortedListOfPlayers());
 
+      //set the tournament object so it can be passed to the view
       request.getSession().setAttribute("tournament", tournament);
       request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
    }

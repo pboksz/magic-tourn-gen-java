@@ -21,23 +21,23 @@ public class DropController extends HttpServlet
       Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
       String dropped = request.getParameter("dropped");
 
+      //if there is an error dropping a player, set an error to show up in the view
       if(!tournament.dropPlayer(dropped)){
          request.setAttribute("error", dropped + " cannot be dropped because there would not be enough players left to adequately pair everyone in the remaining rounds.");
       }
+
+      //set the items to be displayed on the results.jsp page
       String title = "Round " + tournament.getPrevRound() + " Standings";
-      if(tournament.getRound() > tournament.getMaxRound()) {
-         title = "Final Results";
-      }
       request.setAttribute("title", title);
-      request.setAttribute("droppable", tournament.hasDroppable());
+      request.setAttribute("droppable", tournament.canDropPlayer());
       request.setAttribute("results", tournament.getCurrentRankings());
 
+      //set the tournament object so it can be passed to the view
       request.getSession().setAttribute("tournament", tournament);
       request.getRequestDispatcher("/pages/results.jsp").forward(request, response);
    }
 
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-   {
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       doGet(request, response);
    }
 }

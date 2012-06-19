@@ -17,10 +17,21 @@ import java.util.TreeMap;
 public class PlayerInfo implements Serializable {
    private static final long serialVersionUID = 7526472295622776147L;
 
+   /**
+    * method to de-serialize this object for app engine
+    * @param aInputStream ObjectInputStream
+    * @throws ClassNotFoundException exception
+    * @throws IOException exception
+    */
    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
       aInputStream.defaultReadObject();
    }
 
+   /**
+    * method to serialize this object for app engine
+    * @param aOutputStream ObjectOutputStream
+    * @throws IOException exception
+    */
    private void writeObject(ObjectOutputStream aOutputStream) throws IOException {
       aOutputStream.defaultWriteObject();
    }
@@ -39,6 +50,12 @@ public class PlayerInfo implements Serializable {
    private ArrayList<String> possibleOpponents = new ArrayList<String>();
    private SortedMap<Integer, String> roundPairings = new TreeMap<Integer, String>();
 
+   /**
+    * constructor for PlayerInfo object
+    * @param name name of the player
+    * @param seed seed number
+    * @param playerNames list of all other players in the tournament
+    */
    public PlayerInfo(String name, int seed, ArrayList<String> playerNames)
    {
       this.name = name;

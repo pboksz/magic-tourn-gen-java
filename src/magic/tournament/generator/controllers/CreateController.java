@@ -21,20 +21,22 @@ public class CreateController extends HttpServlet
       request.setAttribute("title", "Add Players");
       request.setAttribute("message", "Please enter each player's name. If left blank the player's name will default to the respective player number.");
 
+      //get all the data from the index.jsp page
       int numPlayers = Integer.valueOf(request.getParameter("howManyPlayers"));
       int maxRounds = Integer.valueOf(request.getParameter("howManyRounds"));
       int bestOf = Integer.valueOf(request.getParameter("bestOf"));
       String format = request.getParameter("whichFormat");
 
+      //create a new tournament object with the parameters input
       Tournament tournament = new Tournament(numPlayers, maxRounds, bestOf, format);
       request.setAttribute("howManyPlayers", numPlayers);
 
+      //set the tournament object so it can be passed to the view
       request.getSession().setAttribute("tournament", tournament);
       request.getRequestDispatcher("/pages/addplayers.jsp").forward(request, response);
    }
    
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-   {
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       doGet(request, response);
    }
 }
