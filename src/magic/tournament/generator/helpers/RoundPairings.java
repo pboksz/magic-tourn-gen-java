@@ -2,12 +2,6 @@ package magic.tournament.generator.helpers;
 
 import java.util.ArrayList;
 
-/**
- * {NAME}
- * Author: Phillip Boksz
- * Date: 4/2/12
- * Time: 11:41 AM
- */
 public class RoundPairings
 {
    Tournament tournament;

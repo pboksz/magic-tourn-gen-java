@@ -8,12 +8,6 @@ import java.util.ArrayList;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-/**
- * {NAME}
- * Author: Phillip Boksz
- * Date: 4/2/12
- * Time: 11:11 AM
- */
 public class PlayerInfo implements Serializable {
    private static final long serialVersionUID = 7526472295622776147L;
 
@@ -149,8 +143,11 @@ public class PlayerInfo implements Serializable {
       this.individualLosses += losses;
    }
 
-   public void addPossibleOpponents(ArrayList<String> playerNames)
-   {
+   /**
+    * add all possible opponents to a list which each player keeps which includes "Bye"
+    * @param playerNames a list of player names
+    */
+   public void addPossibleOpponents(ArrayList<String> playerNames) {
       possibleOpponents.add("Bye");
       for(String player : playerNames) {
          if (!player.equals(name)) {
@@ -159,8 +156,11 @@ public class PlayerInfo implements Serializable {
       }
    }
 
-   public void removePossibleOpponent(String opponent)
-   {
+   /**
+    * remove a player from the list of possible opponents
+    * @param opponent the name of player to remove
+    */
+   public void removePossibleOpponent(String opponent) {
       //if the removed opponent is on the list of possible opponents, remove it
       int index = possibleOpponents.indexOf(opponent);
       if (index != -1)
@@ -169,33 +169,57 @@ public class PlayerInfo implements Serializable {
       }
    }
 
-   public boolean canPlayThisPlayer(String playerName)
-   {
+   /**
+    * check if the player exists in the possible opponents list
+    * @param playerName list of the player to check
+    * @return true if the player is on the list
+    */
+   public boolean canPlayThisPlayer(String playerName) {
       boolean canPlay = false;
       for(String opponent : possibleOpponents){
          if (playerName.equals(opponent)) {
             canPlay = true;
+            break;
          }
       }
       return canPlay;
    }
 
+   /**
+    * check if "Bye" is still in the list of possible opponents
+    * @return true if "Bye" is playable
+    */
    public boolean canUseBye()
    {
       return possibleOpponents.contains("Bye");
    }
 
+   /**
+    * check if the player can only get a Bye round
+    * @return true if "Bye" is the only thing in possible opponents
+    */
    public boolean canOnlyGetBye()
    {
       return (canUseBye() && (possibleOpponents.size() == 1));
    }
 
+   /**
+    * add round pairing to the list and set the opponent's name
+    * @param round number
+    * @param opponent name
+    */
    public void addRoundPairing(int round, String opponent)
    {
       roundPairings.put(round, opponent);
       this.opponent = opponent;
    }
 
+   /**
+    * set the outcome by getting he pairings and creating a string with the outcome and putting it back in the round pairing list
+    * @param round
+    * @param wins
+    * @param losses
+    */
    public void setRoundOutcome(int round, int wins, int losses)
    {
       String info = roundPairings.get(round);

@@ -3,10 +3,7 @@ package magic.tournament.generator.helpers;
 import java.util.Comparator;
 
 /**
- * {NAME}
- * Author: Phillip Boksz
- * Date: 4/3/12
- * Time: 11:16 AM
+ * a comparator to sort by seed
  */
 public class SeedComparator implements Comparator
 {

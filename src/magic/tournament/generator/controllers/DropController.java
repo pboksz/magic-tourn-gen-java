@@ -21,10 +21,8 @@ public class DropController extends HttpServlet
       Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
       String dropped = request.getParameter("dropped");
 
-      //if there is an error dropping a player, set an error to show up in the view
-      if(!tournament.dropPlayer(dropped)){
-         request.setAttribute("error", dropped + " cannot be dropped because there would not be enough players left to adequately pair everyone in the remaining rounds.");
-      }
+      //drop the player from the tournment
+      tournament.dropPlayer(dropped);
 
       //set the items to be displayed on the results.jsp page
       String title = "Round " + tournament.getPrevRound() + " Standings";
