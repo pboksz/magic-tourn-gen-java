@@ -15,12 +15,12 @@
 <% int maxWins = (Integer) request.getAttribute("maxWins"); %>
 <% int bestOf = (Integer) request.getAttribute("bestOf"); %>
 
-<div id="sumerror" class="errors" style="display: none">
-   The values for wins for each player has to be a number, cannot be blank, and should sum to between <%= maxWins %> and <%= bestOf %>.
+<div id="mainError" class="errors" style="display: none">
+   The value for the wins of each player has to be a number, cannot be blank, and should sum to between <%= maxWins %> and <%= bestOf %>.
 </div>
 
 <div class="main">
-   <form name="show" action="nextround" onsubmit="return verifyValues(<%= bestOf %>, <%= maxWins %>)" method="post">
+   <form name="show" action="nextround" onsubmit="return verifyValues(<%= maxWins %>, <%= bestOf %>)" method="post">
       <div class="show">
          <table id="showtable">
             <thead>
@@ -50,7 +50,7 @@
                </td>
                <td>
                   <% if(!pair.getName().equals("Bye") && !pair.getOpponent().equals("Bye")) { %>
-                     <input type="text" name="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
+                     <input type="text" name="wins" id="wins" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>, <%= bestOf %>)">
                   <% } else { %>
                      <input type="hidden" name="wins" value="-1">
                   <% } %>
@@ -64,7 +64,7 @@
                </td>
                <td>
                   <% if(!pair.getName().equals("Bye") && !pair.getOpponent().equals("Bye")) { %>
-                     <input type="text" name="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>)">
+                     <input type="text" name="losses" id="losses" maxlength="1" style="width: 30px;" onchange="verifyValue(this, <%= maxWins %>, <%= bestOf %>)">
                   <% } else { %>
                      <input type="hidden" name="losses" value="-1">
                   <% } %>
