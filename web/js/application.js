@@ -106,47 +106,56 @@ function valid(inputElement) {
 }
 
 function verifyValues(maxWins, bestOf) {
-   isValid = true;
    var wins = document.show.wins;
    var losses = document.show.losses;
 
    for(var i = 0; i < wins.length; i++) {
-      //if something is blank, return error
-      //CASE: nothing is filled in for values
-      if((wins[i].value == "") || (losses[i].value == "")) {
-         isValid = false;
-         break;
-      }
-
-      //get the values of wins and losses
-      var win = parseInt(wins[i].value);
-      var loss = parseInt(losses[i].value);
-
-      //skip over rows that have byes
-      if((win != -1) && (loss != -1)){
-         //if values are greater than maxWins
-         //CASE: win is 4 and maxWins is 2 in a bestOf 3 tournament
-         if((win > maxWins) || (loss > maxWins)) {
-            isValid = false;
-            break;
-         }
-         //if win and loss sum to greater than bestOf
-         //CASE: win is 2 and loss is 2 in a bestOf 3 tournament
-         if(win + loss > bestOf) {
-            isValid = false;
-            break;
-         }
-         //if one of the values is not the maxWins
-         //CASE: win and loss are both 1 which doesn't show a clear winner in a bestOf 3 tournament
-         if(!((win == maxWins) || (loss == maxWins))) {
-            isValid = false;
-            break;
-         }
+      //if the borderColor is red then there is an error and cannot move forward
+      //TODO test this on other browsers, do they convert it to rgb like that always?
+      if((wins[i].style.borderColor == "rgb(255, 136, 136)") || losses[i].style.borderColor == "rgb(255, 136, 136)") {
+         document.getElementById("mainError").style.display = "block";
+         return false;
       }
    }
-   //if there is an error display that error
-   if(!isValid) {
-      document.getElementById("mainError").style.display = "block";
-   }
-   return isValid;
+   return true;
+
+//      isValid = true;
+//      //if something is blank, return error
+//      //CASE: nothing is filled in for values
+//      if((wins[i].value == "") || (losses[i].value == "")) {
+//         isValid = false;
+//         break;
+//      }
+//
+//      //get the values of wins and losses
+//      var win = parseInt(wins[i].value);
+//      var loss = parseInt(losses[i].value);
+//
+//      //skip over rows that have byes
+//      if((win != -1) && (loss != -1)){
+//         //if values are greater than maxWins
+//         //CASE: win is 4 and maxWins is 2 in a bestOf 3 tournament
+//         if((win > maxWins) || (loss > maxWins)) {
+//            isValid = false;
+//            break;
+//         }
+//         //if win and loss sum to greater than bestOf
+//         //CASE: win is 2 and loss is 2 in a bestOf 3 tournament
+//         if(win + loss > bestOf) {
+//            isValid = false;
+//            break;
+//         }
+//         //if one of the values is not the maxWins
+//         //CASE: win and loss are both 1 which doesn't show a clear winner in a bestOf 3 tournament
+//         if(!((win == maxWins) || (loss == maxWins))) {
+//            isValid = false;
+//            break;
+//         }
+//      }
+//   }
+//   //if there is an error display that error
+//   if(!isValid) {
+//      document.getElementById("mainError").style.display = "block";
+//   }
+//   return isValid;
 }
