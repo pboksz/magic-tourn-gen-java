@@ -50,7 +50,6 @@ function addOptions(num) {
    }
 }
 
-
 function verifyValue(inputElement, maxWins, bestOf) {
    var row = inputElement.parentElement.parentElement;
    var winElement = row.cells[1].firstElementChild;

@@ -34,7 +34,7 @@ public class DropControllerTests
       request = createStrictMock(HttpServletRequest.class);
       drop = new DropController();
 
-      tournament = new Tournament(4, 3, 3, "Swiss");
+      tournament = new Tournament(4, 3, 3);
       tournament.registerPlayers(getAllPlayers());
    }
 

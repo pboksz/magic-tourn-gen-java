@@ -47,7 +47,7 @@ public class NextRoundControllerTests
       request = createStrictMock(HttpServletRequest.class);
       nextRound = new NextRoundController();
 
-      tournament = new Tournament(4, 3, 3, "Swiss");
+      tournament = new Tournament(4, 3, 3);
       tournament.registerPlayers(getAllPlayers());
    }
 

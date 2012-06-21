@@ -24,7 +24,7 @@ public class RegisterControllerTests
       request = createStrictMock(HttpServletRequest.class);
       register = new RegisterController();
 
-      tournament = new Tournament(4, 3, 3, "Swiss");
+      tournament = new Tournament(4, 3, 3);
    }
 
 //   @Test
