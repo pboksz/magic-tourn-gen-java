@@ -25,10 +25,9 @@ public class CreateController extends HttpServlet
       int numPlayers = Integer.valueOf(request.getParameter("howManyPlayers"));
       int maxRounds = Integer.valueOf(request.getParameter("howManyRounds"));
       int bestOf = Integer.valueOf(request.getParameter("bestOf"));
-      String format = request.getParameter("whichFormat");
 
       //create a new tournament object with the parameters input
-      Tournament tournament = new Tournament(numPlayers, maxRounds, bestOf, format);
+      Tournament tournament = new Tournament(numPlayers, maxRounds, bestOf);
       request.setAttribute("howManyPlayers", numPlayers);
 
       //set the tournament object so it can be passed to the view

@@ -40,7 +40,6 @@ public class Tournament implements Serializable {
    private int maxRound;
    private int bestOf;
    private int maxWins;
-   private String format;
 
    private int maxDroppable = 1;
    private Random seed = new Random();
@@ -51,14 +50,12 @@ public class Tournament implements Serializable {
     * @param numPlayers number of players
     * @param maxRound number of rounds
     * @param bestOf each round is best of 3 or 5, etc
-    * @param format which format (currently always Swiss)
     */
-   public Tournament(int numPlayers, int maxRound, int bestOf, String format) {
+   public Tournament(int numPlayers, int maxRound, int bestOf) {
       this.numPlayers = numPlayers;
       this.maxRound = maxRound;
       this.bestOf = bestOf;
       this.maxWins = (int) Math.ceil(bestOf/2.0);
-      this.format = format;
    }
 
    public int getPrevRound() {
@@ -70,7 +67,8 @@ public class Tournament implements Serializable {
    }
 
    public int getNumPlayers() {
-      return mapOfPlayers.size();
+      numPlayers = mapOfPlayers.size();
+      return numPlayers;
    }
 
    public int getMaxRound() {
@@ -83,10 +81,6 @@ public class Tournament implements Serializable {
 
    public int getMaxWins() {
       return maxWins;
-   }
-
-   public String getFormat() {
-      return format;
    }
    
    public int getMaxDroppable() {

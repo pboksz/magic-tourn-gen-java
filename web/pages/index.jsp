@@ -24,9 +24,6 @@
                <th>
                   Play To Best Of?
                </th>
-               <th>
-                  Which Format?
-               </th>
             </tr>
             </thead>
             <tr>
@@ -49,11 +46,6 @@
                      <% for(int i = 3; i <= 5; i += 2 ) {%>
                         <option><%= i%></option>
                      <% } %>
-                  </select>
-               </td>
-               <td>
-                  <select name="whichFormat">
-                     <option>Swiss</option>
                   </select>
                </td>
             </tr>
