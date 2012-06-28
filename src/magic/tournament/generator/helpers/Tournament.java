@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Random;
 import java.util.SortedMap;
@@ -17,9 +18,10 @@ public class Tournament implements Serializable {
 
    /**
     * method to de-serialize this object for app engine
+    *
     * @param aInputStream ObjectInputStream
     * @throws ClassNotFoundException exception
-    * @throws IOException exception
+    * @throws IOException            exception
     */
    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
       aInputStream.defaultReadObject();
@@ -27,6 +29,7 @@ public class Tournament implements Serializable {
 
    /**
     * method to serialize this object for app engine
+    *
     * @param aOutputStream ObjectOutputStream
     * @throws IOException exception
     */
@@ -47,15 +50,16 @@ public class Tournament implements Serializable {
 
    /**
     * constructor for Tournament object
+    *
     * @param numPlayers number of players
-    * @param maxRound number of rounds
-    * @param bestOf each round is best of 3 or 5, etc
+    * @param maxRound   number of rounds
+    * @param bestOf     each round is best of 3 or 5, etc
     */
    public Tournament(int numPlayers, int maxRound, int bestOf) {
       this.numPlayers = numPlayers;
       this.maxRound = maxRound;
       this.bestOf = bestOf;
-      this.maxWins = (int) Math.ceil(bestOf/2.0);
+      this.maxWins = (int) Math.ceil(bestOf / 2.0);
    }
 
    public int getPrevRound() {
@@ -82,7 +86,7 @@ public class Tournament implements Serializable {
    public int getMaxWins() {
       return maxWins;
    }
-   
+
    public int getMaxDroppable() {
       return maxDroppable;
    }
@@ -105,11 +109,12 @@ public class Tournament implements Serializable {
 
    /**
     * clone the map of players into a another sorted map
+    *
     * @return a cloned sorted map
     */
    public SortedMap<String, PlayerInfo> cloneMapOfPlayers() {
       SortedMap<String, PlayerInfo> cloneMap = new TreeMap<String, PlayerInfo>();
-      for(Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()){
+      for (Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()) {
          cloneMap.put(infoEntry.getKey(), infoEntry.getValue());
       }
       return cloneMap;
@@ -117,11 +122,12 @@ public class Tournament implements Serializable {
 
    /**
     * return the player map as a list of PlayerInfo objects
+    *
     * @return a list of PlayerInfo objects
     */
    public ArrayList<PlayerInfo> getListOfPlayers() {
       ArrayList<PlayerInfo> listOfPlayers = new ArrayList<PlayerInfo>();
-      for(Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()){
+      for (Map.Entry<String, PlayerInfo> infoEntry : mapOfPlayers.entrySet()) {
          listOfPlayers.add(infoEntry.getValue());
       }
       return listOfPlayers;
@@ -129,17 +135,25 @@ public class Tournament implements Serializable {
 
    /**
     * register a list of players by creating new PlayerInfo objects for each
+    *
     * @param playerNames a list of player names
     */
    public void registerPlayers(ArrayList<String> playerNames) {
-      for(String name : playerNames){
+      for (String name : playerNames) {
          mapOfPlayers.put(name, new PlayerInfo(name, seed.nextInt(100), playerNames));
       }
       maxDroppable = getNumPlayers() - getMaxRound();
    }
 
+   private class SeedComparator implements Comparator<PlayerInfo> {
+      public int compare(PlayerInfo player1, PlayerInfo player2) {
+         return (player1.getSeed() - player2.getSeed());
+      }
+   }
+
    /**
     * return a seed sorted list of players
+    *
     * @return arraylist, seed sorted
     */
    public ArrayList<PlayerInfo> getSeedSortedListOfPlayers() {
@@ -148,8 +162,27 @@ public class Tournament implements Serializable {
       return listOfPlayers;
    }
 
+   public class RankComparator implements Comparator<PlayerInfo> {
+      public int compare(PlayerInfo player1, PlayerInfo player2) {
+         if (player1.getRoundWins() == player2.getRoundWins()) {
+            if (player1.getRoundByes() == player2.getRoundByes()) {
+               if (player1.getIndividualWins() == player2.getIndividualWins()) {
+                  return (player1.getIndividualLosses() - player2.getIndividualLosses());
+               } else {
+                  return (player2.getIndividualWins() - player1.getIndividualWins());
+               }
+            } else {
+               return (player2.getRoundByes() - player1.getRoundByes());
+            }
+         } else {
+            return (player2.getRoundWins() - player1.getRoundWins());
+         }
+      }
+   }
+
    /**
     * return a rank sorted list of players
+    *
     * @return arraylist, rank sorted
     */
    public ArrayList<PlayerInfo> getRankSortedListOfPlayers() {
@@ -160,14 +193,13 @@ public class Tournament implements Serializable {
 
    /**
     * sets each players final ranking when called on
+    *
     * @return a list of players with final ranks in place
     */
-   public ArrayList<PlayerInfo> getCurrentRankings()
-   {
+   public ArrayList<PlayerInfo> getCurrentRankings() {
       ArrayList<PlayerInfo> listOfPlayers = getRankSortedListOfPlayers();
       int rank = 1;
-      for (PlayerInfo player : listOfPlayers)
-      {
+      for (PlayerInfo player : listOfPlayers) {
          player.setRank(rank++);
       }
       return listOfPlayers;
@@ -175,6 +207,7 @@ public class Tournament implements Serializable {
 
    /**
     * checks if Tournament has room to drop, if its not the first round or already showing the final results
+    *
     * @return true if player can be dropped
     */
    public boolean canDropPlayer() {
@@ -183,6 +216,7 @@ public class Tournament implements Serializable {
 
    /**
     * drops a player from the map of players and removes the player from each of the possible opponents lists
+    *
     * @param dropped name of the player to be dropped
     */
    public void dropPlayer(String dropped) {
@@ -192,8 +226,7 @@ public class Tournament implements Serializable {
       ArrayList<PlayerInfo> listOfPlayers = getListOfPlayers();
 
       //for each player remove dropped player from the list of possible opponents
-      for (PlayerInfo player : listOfPlayers)
-      {
+      for (PlayerInfo player : listOfPlayers) {
          player.removePossibleOpponent(dropped);
          save(player);
       }
@@ -201,10 +234,11 @@ public class Tournament implements Serializable {
 
    /**
     * sets the outcome of the round for each player
-    * @param playerName the player's playerName
+    *
+    * @param playerName   the player's playerName
     * @param opponentName the opponentName's playerName
-    * @param wins the player's wins
-    * @param losses the player's losses
+    * @param wins         the player's wins
+    * @param losses       the player's losses
     */
    public void setPlayerOutcome(String playerName, String opponentName, int wins, int losses) {
       PlayerInfo player = mapOfPlayers.get(playerName);
@@ -236,7 +270,8 @@ public class Tournament implements Serializable {
 
    /**
     * Sets both players info object to record the round and opponentName for the round
-    * @param playerName name of player
+    *
+    * @param playerName   name of player
     * @param opponentName name of opponent
     */
    public void setRoundPairing(String playerName, String opponentName) {
@@ -260,6 +295,7 @@ public class Tournament implements Serializable {
 
    /**
     * saves the player to the map object by removing the old one, and adding the new one
+    *
     * @param player the PlayerInfo object for that player
     */
    private void save(PlayerInfo player) {

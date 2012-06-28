@@ -13,10 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  * Date: 4/10/12
  * Time: 10:33 AM
  */
-public class IndexController extends HttpServlet
-{
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-   {
+public class IndexController extends HttpServlet {
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       request.setAttribute("title", "Tournament Settings");
       request.setAttribute("message", "Please select the tournament settings.");
 

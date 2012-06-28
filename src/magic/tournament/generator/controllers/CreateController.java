@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * Date: 4/2/12
  * Time: 8:03 PM
  */
-public class CreateController extends HttpServlet
-{
+public class CreateController extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       request.setAttribute("title", "Add Players");
       request.setAttribute("message", "Please enter each player's name. If left blank the player's name will default to the respective player number.");
@@ -34,7 +33,7 @@ public class CreateController extends HttpServlet
       request.getSession().setAttribute("tournament", tournament);
       request.getRequestDispatcher("/pages/addplayers.jsp").forward(request, response);
    }
-   
+
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       doGet(request, response);
    }

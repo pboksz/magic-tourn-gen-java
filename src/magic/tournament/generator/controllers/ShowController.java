@@ -19,17 +19,16 @@ import javax.servlet.http.HttpServletResponse;
  * Date: 4/3/12
  * Time: 2:43 PM
  */
-public class ShowController extends HttpServlet
-{
+public class ShowController extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
-      RoundPairings roundPairings =  new RoundPairings(tournament);
+      RoundPairings roundPairings = new RoundPairings(tournament);
 
       request.setAttribute("title", "Round " + tournament.getRound());
       request.setAttribute("message", "Please enter the wins of each player and opponent.");
 
       //if this is the next round, set the pairings and increment the prevRound counter
-      if(tournament.isNextRound()){
+      if (tournament.isNextRound()) {
          roundPairings.setRoundPairings();
          tournament.incPrevRound();
       }
@@ -37,7 +36,7 @@ public class ShowController extends HttpServlet
       //clone the player map and use it to add pairs to the list that will be displayed on the next page
       ArrayList<PlayerInfo> listOfPairs = new ArrayList<PlayerInfo>();
       SortedMap<String, PlayerInfo> clonedMapOfPlayers = tournament.cloneMapOfPlayers();
-      while(clonedMapOfPlayers.size() != 0) {
+      while (clonedMapOfPlayers.size() != 0) {
          PlayerInfo player = clonedMapOfPlayers.get(clonedMapOfPlayers.firstKey());
          listOfPairs.add(player);
          clonedMapOfPlayers.remove(player.getName());
@@ -51,7 +50,7 @@ public class ShowController extends HttpServlet
       request.getSession().setAttribute("tournament", tournament);
       request.getRequestDispatcher("/pages/show.jsp").forward(request, response);
    }
-   
+
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       doGet(request, response);
    }

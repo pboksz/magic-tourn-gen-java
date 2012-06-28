@@ -17,8 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * Date: 4/3/12
  * Time: 11:57 AM
  */
-public class RegisterController extends HttpServlet
-{
+public class RegisterController extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
 
@@ -26,13 +25,12 @@ public class RegisterController extends HttpServlet
       request.setAttribute("message", "Players will be paired by the order in which they are seeded.");
 
       //if the list of players is empty take the players entered in the previous page, else take whats already in the object
-      if(tournament.getListOfPlayers().isEmpty()){
+      if (tournament.getListOfPlayers().isEmpty()) {
          ArrayList<String> playerNames = new ArrayList<String>();
          Map params = request.getParameterMap();
 
          //for each player use the value or, if thats blank, the key
-         for (Object key : params.keySet())
-         {
+         for (Object key : params.keySet()) {
             String value = ((String[]) params.get(key))[0];
             playerNames.add(validateName(value, (String) key));
          }
@@ -50,15 +48,15 @@ public class RegisterController extends HttpServlet
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       doGet(request, response);
    }
-   
+
    public String validateName(String value, String key) {
       String name = key;
       //if its alphanumeric the name is the value not the key
-      if(value.matches("[a-zA-Z0-9]+")) {
+      if (value.matches("[a-zA-Z0-9 ]+")) {
          name = value;
          //if its super long just truncate it to 47 characters plus a "..."
-         if(name.length() > 47) {
-            name = name.substring(0,47) + "...";
+         if (name.length() > 47) {
+            name = name.substring(0, 47) + "...";
          }
       }
       return name;

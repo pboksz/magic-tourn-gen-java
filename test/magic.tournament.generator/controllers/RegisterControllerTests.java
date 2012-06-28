@@ -13,8 +13,7 @@ import static org.easymock.EasyMock.createStrictMock;
  * Date: 5/14/12
  * Time: 3:49 PM
  */
-public class RegisterControllerTests
-{
+public class RegisterControllerTests {
    private HttpServletRequest request;
    private RegisterController register;
    private Tournament tournament;

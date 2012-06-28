@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * Date: 4/5/12
  * Time: 2:16 PM
  */
-public class DropController extends HttpServlet
-{
+public class DropController extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
       String dropped = request.getParameter("dropped");

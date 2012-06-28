@@ -2,8 +2,7 @@ package magic.tournament.generator.helpers;
 
 import java.util.ArrayList;
 
-public class RoundPairings
-{
+public class RoundPairings {
    Tournament tournament;
    ArrayList<PlayerPairing> queue;
 
@@ -15,25 +14,21 @@ public class RoundPairings
     * method the recursively tries to set the pairings
     * these actions are stored in a queue and activate when you get back here
     */
-   public void setRoundPairings()
-   {
+   public void setRoundPairings() {
       //list of sorted players
       ArrayList<PlayerInfo> sorted;
       //create a queue object
       queue = new ArrayList<PlayerPairing>();
       //if first round get other sorting
-      if (tournament.getRound() == 1)
-      {
+      if (tournament.getRound() == 1) {
          sorted = tournament.getSeedSortedListOfPlayers();
-      }
-      else
-      {
+      } else {
          sorted = tournament.getRankSortedListOfPlayers();
       }
       //try doing all the pairings
       trySettingRoundPairings(sorted);
       //after all that activate the pairings in the final queue
-      for(PlayerPairing pair : queue){
+      for (PlayerPairing pair : queue) {
          tournament.setRoundPairing(pair.getPlayerName(), pair.getOpponentName());
       }
    }
@@ -43,8 +38,7 @@ public class RoundPairings
     *
     * @param sorted takes a list of PlayerInfo objects sorted by rank (sometimes in reverse order)
     */
-   private void trySettingRoundPairings(ArrayList<PlayerInfo> sorted)
-   {
+   private void trySettingRoundPairings(ArrayList<PlayerInfo> sorted) {
       int firstIndex = 1;
       boolean isFirstPlayer = true;
       //try and pair off all the other people
@@ -58,22 +52,18 @@ public class RoundPairings
     * @param isFirstPlayer a boolean that is true says to start trying to pair the first player with the player at index 'firstIndex'
     * @param firstIndex    the index of the player to start trying to pair with
     */
-   private void tryPairingAllPlayers(ArrayList<PlayerInfo> sorted, boolean isFirstPlayer, int firstIndex)
-   {
+   private void tryPairingAllPlayers(ArrayList<PlayerInfo> sorted, boolean isFirstPlayer, int firstIndex) {
       //try setting the bye first to last player without a bye
-      if (sorted.size() % 2 == 1)
-      {
+      if (sorted.size() % 2 == 1) {
          int lastIndex = sorted.size() - 1;
          trySettingLowestBye(sorted, lastIndex);
       }
       //has this successfully paired the first player?
       boolean successFullyPairedAll = true;
-      while ((sorted.size() != 0) && successFullyPairedAll)
-      {
+      while ((sorted.size() != 0) && successFullyPairedAll) {
          int pairIndex = 1;
          //if this is the first player being sorted for the first time may change the index of the player to look at first
-         if (isFirstPlayer)
-         {
+         if (isFirstPlayer) {
             pairIndex = firstIndex;
             isFirstPlayer = false;
          }
@@ -81,8 +71,7 @@ public class RoundPairings
          successFullyPairedAll = tryPairingNextPlayer(sorted, pairIndex);
       }
       //this would mean that the player cannot be paired with anyone in the set
-      if (!successFullyPairedAll)
-      {
+      if (!successFullyPairedAll) {
          queue.clear();
          isFirstPlayer = true;
          sorted = tournament.getRankSortedListOfPlayers();
@@ -96,24 +85,18 @@ public class RoundPairings
     * @param sorted list of players sorted by rank
     * @param last   index of the last player
     */
-   private void trySettingLowestBye(ArrayList<PlayerInfo> sorted, int last)
-   {
+   private void trySettingLowestBye(ArrayList<PlayerInfo> sorted, int last) {
       boolean byeIsNotSet = true;
-      if (tournament.getNumPlayers() == 3)
-      {
+      if (tournament.getNumPlayers() == 3) {
          byeIsNotSet = handle3PlayerByes(sorted, last);
       }
       //else this normally gives the Bye to the last possible player
-      if (byeIsNotSet)
-      {
+      if (byeIsNotSet) {
          PlayerInfo player = sorted.get(last);
-         if (player.canUseBye())
-         {
+         if (player.canUseBye()) {
             queue.add(new PlayerPairing(player.getName(), "Bye"));
             sorted.remove(last);
-         }
-         else
-         {
+         } else {
             trySettingLowestBye(sorted, --last);
          }
       }
@@ -126,16 +109,13 @@ public class RoundPairings
     * @param last   the last index of the player list
     * @return a boolean as to whether the bye was set or not
     */
-   private boolean handle3PlayerByes(ArrayList<PlayerInfo> sorted, int last)
-   {
+   private boolean handle3PlayerByes(ArrayList<PlayerInfo> sorted, int last) {
       boolean byeIsNotSet = true;
       //if this is second to last round pairing, there can be an issue with the last player not being able to
       //have a bye, as that player needs to play one of the other two players
-      if (tournament.getRound() == (tournament.getMaxRound() - 1))
-      {
+      if (tournament.getRound() == (tournament.getMaxRound() - 1)) {
          //if the last player has 3 possible opponents (that is one of the other two has to play him), set second to last as bye
-         if (sorted.get(last).getPossibleOpponents().size() == 3)
-         {
+         if (sorted.get(last).getPossibleOpponents().size() == 3) {
             PlayerInfo player = sorted.get(last - 1);
             queue.add(new PlayerPairing(player.getName(), "Bye"));
             sorted.remove(last - 1);
@@ -143,13 +123,10 @@ public class RoundPairings
          }
       }
       //if this is last round pairing, there has a potential for a player to only be able to have a bye
-      if (tournament.getRound() == tournament.getMaxRound())
-      {
-         for (int i = 0; i < sorted.size(); i++)
-         {
+      if (tournament.getRound() == tournament.getMaxRound()) {
+         for (int i = 0; i < sorted.size(); i++) {
             PlayerInfo player = sorted.get(i);
-            if (player.canOnlyGetBye())
-            {
+            if (player.canOnlyGetBye()) {
                queue.add(new PlayerPairing(player.getName(), "Bye"));
                sorted.remove(i);
                byeIsNotSet = false;
@@ -167,17 +144,14 @@ public class RoundPairings
     * @param pairIndex the index of the player to try and pair first
     * @return a boolean on whether this pairing was successful of not
     */
-   private boolean tryPairingNextPlayer(ArrayList<PlayerInfo> sorted, int pairIndex)
-   {
-      if (pairIndex < sorted.size())
-      {
+   private boolean tryPairingNextPlayer(ArrayList<PlayerInfo> sorted, int pairIndex) {
+      if (pairIndex < sorted.size()) {
          //get the first player to look at
          PlayerInfo player = sorted.get(0);
          //if there are potential players to match
          PlayerInfo opponent = sorted.get(pairIndex);
          //if player has not previously played this opponent
-         if (player.canPlayThisPlayer(opponent.getName()))
-         {
+         if (player.canPlayThisPlayer(opponent.getName())) {
             //add this pair to the queue, as later this may get scrapped
             queue.add(new PlayerPairing(player.getName(), opponent.getName()));
             //remove the player and opponent paired from sorted and reverts back to trySettingRoundPairs() with two players removed
@@ -186,14 +160,29 @@ public class RoundPairings
             return true;
          }
          //else test the next player in sorted and see if thats a better match
-         else
-         {
+         else {
             return tryPairingNextPlayer(sorted, ++pairIndex);
          }
-      }
-      else
-      {
+      } else {
          return false;
+      }
+   }
+
+   private class PlayerPairing {
+      private String playerName;
+      private String opponentName;
+
+      public PlayerPairing(String playerName, String opponentName) {
+         this.playerName = playerName;
+         this.opponentName = opponentName;
+      }
+
+      public String getPlayerName() {
+         return playerName;
+      }
+
+      public String getOpponentName() {
+         return opponentName;
       }
    }
 }
