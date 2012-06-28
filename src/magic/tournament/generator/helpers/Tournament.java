@@ -13,7 +13,6 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class Tournament implements Serializable {
-
    private static final long serialVersionUID = 7526472295622776147L;
 
    /**
@@ -274,8 +273,7 @@ public class Tournament implements Serializable {
     * @param playerName   name of player
     * @param opponentName name of opponent
     */
-   public void setRoundPairing(String playerName, String opponentName) {
-
+   public void setPlayerPairing(String playerName, String opponentName) {
       //set the round pairing of the player and remove opponent name from possible opponents
       if (!playerName.equals("Bye")) {
          PlayerInfo player = mapOfPlayers.get(playerName);

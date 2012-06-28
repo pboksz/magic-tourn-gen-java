@@ -6,11 +6,7 @@ import org.junit.Test;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.createStrictMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
+import static org.easymock.EasyMock.*;
 
 public class IndexControllerTests
 {
@@ -25,13 +21,13 @@ public class IndexControllerTests
 
    @Test
    public void testIndexController() throws Exception {
-      request.setAttribute("title", "Tournament Settings");
-      request.setAttribute("message", "Please select the tournament settings.");
+      request.setAttribute(eq("title"), isA(String.class));
+      request.setAttribute(eq("message"), isA(String.class));
 
       expect(request.getRequestDispatcher("/pages/index.jsp")).andReturn(createMock(RequestDispatcher.class));
 
       replay(request);
-      index.doGet(request, null);
+      index.doPost(request, null);
       verify(request);
    }
 }

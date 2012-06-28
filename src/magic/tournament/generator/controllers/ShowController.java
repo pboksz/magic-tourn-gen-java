@@ -29,7 +29,7 @@ public class ShowController extends HttpServlet {
 
       //if this is the next round, set the pairings and increment the prevRound counter
       if (tournament.isNextRound()) {
-         roundPairings.setRoundPairings();
+         roundPairings.createRoundPairings();
          tournament.incPrevRound();
       }
 

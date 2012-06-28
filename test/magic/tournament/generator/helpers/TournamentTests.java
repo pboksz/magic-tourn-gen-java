@@ -153,7 +153,7 @@ public class TournamentTests
 
    @Test
    public void testSetRoundPairing() {
-      tournament.setRoundPairing("player1", "player2");
+      tournament.setPlayerPairing("player1", "player2");
       PlayerInfo player1 = tournament.getMapOfPlayers().get("player1");
       PlayerInfo player2 = tournament.getMapOfPlayers().get("player2");
 
@@ -166,11 +166,26 @@ public class TournamentTests
    
    @Test
    public void testSetRoundPairingAgainstBye() {
-      tournament.setRoundPairing("player1", "Bye");
+      tournament.setPlayerPairing("player1", "Bye");
       PlayerInfo player1 = tournament.getMapOfPlayers().get("player1");
 
       assertFalse(player1.getPossibleOpponents().contains("Bye"));
       assertEquals("Bye", player1.getRoundPairings().get(1));
       assertFalse(tournament.getMapOfPlayers().containsKey("Bye"));
+   }
+
+   @Test
+   public void testSettingByePlayersOutcome() {
+      tournament.setPlayerOutcome("Bye", "player1", 2, 1);
+
+      assertFalse(tournament.getMapOfPlayers().containsKey("Bye"));
+   }
+
+   @Test
+   public void testRoundPairingBye() {
+      tournament.setPlayerPairing("Bye", "player1");
+      PlayerInfo player = tournament.getMapOfPlayers().get("player1");
+
+      assertTrue(player.getRoundPairings().containsValue("Bye"));
    }
 }

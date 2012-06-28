@@ -14,7 +14,7 @@ public class RoundPairings {
     * method the recursively tries to set the pairings
     * these actions are stored in a queue and activate when you get back here
     */
-   public void setRoundPairings() {
+   public void createRoundPairings() {
       //list of sorted players
       ArrayList<PlayerInfo> sorted;
       //create a queue object
@@ -29,7 +29,7 @@ public class RoundPairings {
       trySettingRoundPairings(sorted);
       //after all that activate the pairings in the final queue
       for (PlayerPairing pair : queue) {
-         tournament.setRoundPairing(pair.getPlayerName(), pair.getOpponentName());
+         tournament.setPlayerPairing(pair.getPlayerName(), pair.getOpponentName());
       }
    }
 

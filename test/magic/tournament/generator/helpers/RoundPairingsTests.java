@@ -17,7 +17,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class RoundPairingsTests
 {
-
    private RoundPairings pairings;
    private Tournament tournament;
 
@@ -57,7 +56,7 @@ public class RoundPairingsTests
 
    @Test
    public void testInitialSeeding() {
-      pairings.setRoundPairings();
+      pairings.createRoundPairings();
       ArrayList<PlayerInfo> listOfPlayers = tournament.getSeedSortedListOfPlayers();
 
       for(PlayerInfo player : listOfPlayers) {
@@ -76,9 +75,9 @@ public class RoundPairingsTests
 
    @Test
    public void testRankPairingRoundTwo() {
-      pairings.setRoundPairings();
+      pairings.createRoundPairings();
       setFirstRoundWithFour();
-      pairings.setRoundPairings();
+      pairings.createRoundPairings();
       ArrayList<PlayerInfo> listOfPlayers = tournament.getCurrentRankings();
 
       for(PlayerInfo player : listOfPlayers) {
@@ -100,8 +99,9 @@ public class RoundPairingsTests
    public void testInitialSeedingWithBye() {
       tournament = new Tournament(5, 3, 3);
       tournament.registerPlayers(getAllPlayers(5));
+
       pairings = new RoundPairings(tournament);
-      pairings.setRoundPairings();
+      pairings.createRoundPairings();
       ArrayList<PlayerInfo> listOfPlayers = tournament.getSeedSortedListOfPlayers();
 
       for(PlayerInfo player : listOfPlayers) {
@@ -125,10 +125,15 @@ public class RoundPairingsTests
    public void testByePairingRoundTwo() {
       tournament = new Tournament(5, 3, 3);
       tournament.registerPlayers(getAllPlayers(5));
+
+      //round one pairings
       pairings = new RoundPairings(tournament);
-      pairings.setRoundPairings();
+      pairings.createRoundPairings();
       setFirstRoundWithFive();
-      pairings.setRoundPairings();
+
+      //round two pairings
+      pairings = new RoundPairings(tournament);
+      pairings.createRoundPairings();
       ArrayList<PlayerInfo> listOfPlayers = tournament.getCurrentRankings();
 
       for(PlayerInfo player : listOfPlayers) {
@@ -147,4 +152,35 @@ public class RoundPairingsTests
       assertEquals(4, fourth);
       assertEquals(5, fifth);
    }
+   
+   @Test
+   public void testThreePlayerPairing() {
+      tournament = new Tournament(4, 3, 3);
+      tournament.registerPlayers(getAllPlayers(4));
+
+      //round one pairings
+      pairings = new RoundPairings(tournament);
+      pairings.createRoundPairings();
+      setFirstRoundWithFour();
+
+      //drop a player
+      tournament.dropPlayer("player4");
+
+      //round two pairings
+      pairings = new RoundPairings(tournament);
+      pairings.createRoundPairings();
+
+      //set outcome for round two
+      tournament.setPlayerOutcome("player1", "player3", 2, 0);
+      tournament.setPlayerOutcome("player3", "player1", 0, 2);
+      tournament.setPlayerOutcome("player2", "Bye", -1, -1);
+      tournament.nextRound();
+      tournament.incPrevRound();
+
+      //round three pairings
+      pairings = new RoundPairings(tournament);
+      pairings.createRoundPairings();
+   }
+
+   //TODO need some more corner cases
 }

@@ -50,7 +50,7 @@ public class NextRoundController extends HttpServlet {
 
       //set the tournament object so it can be passed to the view
       request.getSession().setAttribute("tournament", tournament);
-      getServletContext().getRequestDispatcher("/pages/results.jsp").forward(request, response);
+      request.getRequestDispatcher("/pages/results.jsp").forward(request, response);
    }
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
